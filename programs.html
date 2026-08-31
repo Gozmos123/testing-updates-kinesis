@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Programs — KINESIS Organization</title>
+<meta name="description" content="Explore KINESIS programs in sports, Physical Education, movement, wellness, officiating education, seminars, workshops, and event management.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+
+<style>
+  /* ========================================
+     KINESIS PROGRAMS PAGE — PC FIRST
+  ======================================== */
+
+  .programs-shell{
+    padding:72px 0 88px;
+  }
+
+  .programs-intro{
+    max-width:760px;
+    margin-bottom:42px;
+  }
+
+  .programs-intro h2{
+    font-size:clamp(30px,4vw,44px);
+    line-height:1.08;
+  }
+
+  .programs-intro p{
+    margin-top:16px;
+    color:var(--muted);
+    font-size:16px;
+    line-height:1.7;
+  }
+
+  /* ---------- Program areas ---------- */
+
+  .program-area-grid{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:22px;
+  }
+
+  .program-area-card{
+    min-height:290px;
+    padding:30px;
+    border:1px solid var(--line);
+    border-radius:20px;
+    background:
+      linear-gradient(145deg,rgba(18,21,42,.98),rgba(10,12,22,.98));
+    transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease;
+  }
+
+  .program-area-card:hover{
+    transform:translateY(-5px);
+    border-color:rgba(47,168,255,.55);
+    box-shadow:0 20px 46px rgba(0,0,0,.24);
+  }
+
+  .program-area-icon{
+    width:52px;
+    height:52px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:22px;
+    border-radius:14px;
+    background:linear-gradient(135deg,var(--blue),var(--purple));
+  }
+
+  .program-area-icon svg{
+    width:25px;
+    height:25px;
+    stroke:var(--white);
+  }
+
+  .program-area-label{
+    display:block;
+    margin-bottom:9px;
+    color:var(--blue);
+    font-size:11.5px;
+    font-weight:700;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+  }
+
+  .program-area-card h3{
+    font-size:24px;
+    line-height:1.12;
+    margin-bottom:12px;
+  }
+
+  .program-area-card p{
+    color:var(--muted);
+    font-size:14.5px;
+    line-height:1.7;
+  }
+
+  /* ---------- How programs work ---------- */
+
+  .program-process{
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:18px;
+  }
+
+  .process-card{
+    position:relative;
+    padding:26px;
+    min-height:190px;
+    border:1px solid var(--line);
+    border-radius:18px;
+    background:var(--panel);
+  }
+
+  .process-number{
+    display:block;
+    margin-bottom:16px;
+    color:var(--purple);
+    font-family:'Rajdhani',sans-serif;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:.16em;
+  }
+
+  .process-card h3{
+    font-size:21px;
+    margin-bottom:9px;
+  }
+
+  .process-card p{
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.65;
+  }
+
+  /* ---------- Featured past activity ---------- */
+
+  .program-feature{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0;
+    overflow:hidden;
+    border:1px solid var(--line);
+    border-radius:24px;
+    background:var(--panel);
+  }
+
+  .program-feature-image{
+    min-height:430px;
+  }
+
+  .program-feature-image img{
+    width:100%;
+    height:100%;
+    min-height:430px;
+    display:block;
+    object-fit:cover;
+  }
+
+  .program-feature-copy{
+    padding:46px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+
+  .program-status{
+    display:inline-flex;
+    width:max-content;
+    padding:6px 12px;
+    margin-bottom:16px;
+    border-radius:999px;
+    border:1px solid var(--line);
+    background:rgba(199,204,217,.08);
+    color:var(--silver);
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+  }
+
+  .program-feature-copy h2{
+    font-size:clamp(30px,3.5vw,42px);
+    line-height:1.08;
+    margin-bottom:16px;
+  }
+
+  .program-feature-copy p{
+    color:var(--muted);
+    font-size:15px;
+    line-height:1.7;
+  }
+
+  .program-meta{
+    display:grid;
+    grid-template-columns:1fr;
+    margin-top:24px;
+    border:1px solid var(--line);
+    border-radius:16px;
+    overflow:hidden;
+  }
+
+  .program-meta-row{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    padding:14px 16px;
+    border-bottom:1px solid var(--line);
+    font-size:13.5px;
+  }
+
+  .program-meta-row:last-child{
+    border-bottom:none;
+  }
+
+  .program-meta-row span:first-child{
+    color:var(--muted);
+    font-size:11.5px;
+    font-weight:700;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+  }
+
+  .program-meta-row strong{
+    color:var(--white);
+    font-weight:600;
+    text-align:right;
+  }
+
+  .program-feature-actions{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    margin-top:26px;
+  }
+
+  /* ---------- CTA ---------- */
+
+  .program-cta{
+    padding:54px;
+    border:1px solid var(--line);
+    border-radius:24px;
+    background:
+      radial-gradient(circle at 85% 20%,rgba(155,63,224,.20),transparent 34%),
+      radial-gradient(circle at 10% 85%,rgba(47,168,255,.16),transparent 32%),
+      var(--panel);
+    text-align:center;
+  }
+
+  .program-cta h2{
+    font-size:clamp(28px,4vw,42px);
+    margin-bottom:14px;
+  }
+
+  .program-cta p{
+    max-width:670px;
+    margin:0 auto;
+    color:var(--muted);
+    font-size:15.5px;
+    line-height:1.7;
+  }
+
+  .program-cta .btn{
+    margin-top:28px;
+  }
+
+  @media (max-width:1000px){
+    .program-area-grid{
+      grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+
+    .program-process{
+      grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+
+    .program-feature{
+      grid-template-columns:1fr;
+    }
+
+    .program-feature-image,
+    .program-feature-image img{
+      min-height:360px;
+    }
+  }
+
+  @media (max-width:720px){
+    .programs-shell{
+      padding:58px 0 70px;
+    }
+
+    .program-area-grid,
+    .program-process{
+      grid-template-columns:1fr;
+    }
+
+    .program-area-card{
+      min-height:auto;
+    }
+
+    .program-feature-copy{
+      padding:32px 24px;
+    }
+
+    .program-cta{
+      padding:40px 26px;
+    }
+  }
+</style>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S6P4B00FM9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-S6P4B00FM9');
+</script>
+</head>
+
+<body>
+
+<header id="siteHeader">
+  <nav class="wrap">
+
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="KINESIS Organization logo" class="brand-logo">
+      KINESIS
+    </a>
+
+    <div class="navlinks">
+      <a href="index.html">Home</a>
+
+      <div class="nav-dropdown">
+        <a href="about.html" class="dropdown-toggle">
+          About Us <span class="dropdown-arrow">▾</span>
+        </a>
+
+        <div class="dropdown-menu">
+          <a href="about.html">About KINESIS</a>
+          <a href="mission-vision.html">Mission &amp; Vision</a>
+          <a href="advocacies.html">Our Advocacies</a>
+          <a href="team.html">Our Team</a>
+        </div>
+      </div>
+
+      <a href="programs.html" class="active">Programs</a>
+      <a href="products.html">Products</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="events.html">Events</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <div class="nav-right">
+      <div id="navAuthLoggedOut" style="display:flex;gap:10px;">
+        <a href="login.html" class="navghost">Log In</a>
+        <a href="signup.html" class="navcta">Sign Up</a>
+      </div>
+
+      <div id="navAuthLoggedIn" style="display:none;align-items:center;gap:14px;">
+        <a href="dashboard.html" class="navghost">Dashboard</a>
+        <a href="resources.html" class="navghost">Resources</a>
+
+        <a href="profile.html" class="nav-profile">
+          <span class="avatar" id="navAvatarInitial">K</span>
+          <span id="navUserName">Member</span>
+        </a>
+
+        <button class="navghost logoutBtn" type="button">Log Out</button>
+      </div>
+    </div>
+
+    <button
+      class="burger"
+      id="burgerBtn"
+      type="button"
+      aria-label="Open menu"
+    >
+      ☰
+    </button>
+
+  </nav>
+</header>
+
+<main>
+
+  <!-- PAGE HEADER -->
+  <section class="page-header">
+    <div class="hero-ring" aria-hidden="true"></div>
+
+    <div class="wrap">
+      <span class="eyebrow">LEARN · MOVE · ORGANIZE</span>
+      <h1>Programs</h1>
+
+      <p>
+        KINESIS develops learning experiences that connect Physical Education,
+        sports, movement, wellness, officiating, and event management through
+        practical seminars, workshops, training, and collaborative activities.
+      </p>
+    </div>
+  </section>
+
+  <!-- PROGRAM AREAS -->
+  <section class="programs-shell" style="padding-top:26px;">
+    <div class="wrap">
+
+      <div class="programs-intro">
+        <span class="tag">WHAT WE OFFER</span>
+        <h2>Programs built for learning and real experience</h2>
+        <p>
+          Our programs are designed to give participants useful knowledge,
+          practical exposure, teamwork opportunities, and experience that can
+          be applied in sports, Physical Education, and organized events.
+        </p>
+      </div>
+
+      <div class="program-area-grid">
+
+        <article class="program-area-card">
+          <div class="program-area-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 21h8M12 17v4M7 4h10v6a5 5 0 0 1-10 0V4Z"/>
+              <path d="M17 6h2a2 2 0 0 1 0 4h-2M7 6H5a2 2 0 0 0 0 4h2"/>
+            </svg>
+          </div>
+          <span class="program-area-label">Sports Education</span>
+          <h3>Officiating &amp; Sports Knowledge</h3>
+          <p>
+            Hands-on learning focused on rules, court mechanics, judgment,
+            match management, and the responsibilities of sports officials.
+          </p>
+        </article>
+
+        <article class="program-area-card">
+          <div class="program-area-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 4h18v12H3z"/>
+              <path d="M8 20h8M12 16v4"/>
+              <path d="m8 9 2 2 4-4"/>
+            </svg>
+          </div>
+          <span class="program-area-label">Learning</span>
+          <h3>Seminars &amp; Workshops</h3>
+          <p>
+            Structured sessions that combine discussion, demonstrations,
+            practical activities, and guided learning around sports and event topics.
+          </p>
+        </article>
+
+        <article class="program-area-card">
+          <div class="program-area-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3v18M3 12h18"/>
+              <circle cx="12" cy="12" r="8"/>
+            </svg>
+          </div>
+          <span class="program-area-label">Movement</span>
+          <h3>Movement &amp; Wellness Activities</h3>
+          <p>
+            Programs that encourage active participation, movement awareness,
+            physical wellness, and positive experiences through purposeful activity.
+          </p>
+        </article>
+
+        <article class="program-area-card">
+          <div class="program-area-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="5" width="18" height="16" rx="2"/>
+              <path d="M16 3v4M8 3v4M3 10h18"/>
+            </svg>
+          </div>
+          <span class="program-area-label">MICE</span>
+          <h3>Event Management &amp; Operations</h3>
+          <p>
+            Practical exposure to planning, scheduling, logistics, venue setup,
+            communication, coordination, crowd flow, and event execution.
+          </p>
+        </article>
+
+        <article class="program-area-card">
+          <div class="program-area-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            </svg>
+          </div>
+          <span class="program-area-label">Community</span>
+          <h3>Campus &amp; Community Partnerships</h3>
+          <p>
+            Collaborative activities with students, organizations, speakers,
+            partners, and communities that expand access to learning and participation.
+          </p>
+        </article>
+
+        <article class="program-area-card">
+          <div class="program-area-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m9 12 2 2 4-4"/>
+              <circle cx="12" cy="12" r="9"/>
+            </svg>
+          </div>
+          <span class="program-area-label">Practical Experience</span>
+          <h3>Skills Development &amp; Mentorship</h3>
+          <p>
+            Guided opportunities to build confidence, professional habits,
+            communication skills, and practical understanding through real participation.
+          </p>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <div class="streaks" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
+
+  <!-- PROCESS -->
+  <section class="programs-shell">
+    <div class="wrap">
+
+      <div class="programs-intro">
+        <span class="tag">HOW WE LEARN</span>
+        <h2>From knowledge to application</h2>
+        <p>
+          KINESIS programs are structured to move beyond discussion by connecting
+          concepts with participation, practice, teamwork, and reflection.
+        </p>
+      </div>
+
+      <div class="program-process">
+
+        <article class="process-card">
+          <span class="process-number">01 · LEARN</span>
+          <h3>Understand</h3>
+          <p>
+            Participants are introduced to essential concepts, rules, procedures,
+            and responsibilities.
+          </p>
+        </article>
+
+        <article class="process-card">
+          <span class="process-number">02 · PRACTICE</span>
+          <h3>Apply</h3>
+          <p>
+            Activities and demonstrations turn theoretical knowledge into practical experience.
+          </p>
+        </article>
+
+        <article class="process-card">
+          <span class="process-number">03 · COLLABORATE</span>
+          <h3>Work Together</h3>
+          <p>
+            Participants develop communication, coordination, teamwork, and shared responsibility.
+          </p>
+        </article>
+
+        <article class="process-card">
+          <span class="process-number">04 · IMPROVE</span>
+          <h3>Reflect &amp; Develop</h3>
+          <p>
+            Evaluation and feedback help participants strengthen their skills and confidence.
+          </p>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FEATURED PAST ACTIVITY -->
+  <section class="programs-shell">
+    <div class="wrap">
+
+      <div class="programs-intro">
+        <span class="tag">PROGRAM HIGHLIGHT</span>
+        <h2>A previous KINESIS learning experience</h2>
+        <p>
+          One example of our hands-on approach to sports education and practical learning.
+        </p>
+      </div>
+
+      <article class="program-feature">
+
+        <div class="program-feature-image">
+          <img
+            src="assets/event-smash-paddle.jpg"
+            alt="Smash and Paddle: The New Era of Racket Sports Officiating event poster">
+        </div>
+
+        <div class="program-feature-copy">
+
+          <span class="program-status">Completed Program</span>
+
+          <h2>Smash and Paddle: The New Era of Racket Sports Officiating</h2>
+
+          <p>
+            A hands-on seminar-workshop focused on the fundamentals of officiating
+            pickleball and paddle sports, including rules, mechanics, match management,
+            and practical understanding of the official’s role.
+          </p>
+
+          <div class="program-meta">
+            <div class="program-meta-row">
+              <span>Date</span>
+              <strong>April 29, 2026</strong>
+            </div>
+
+            <div class="program-meta-row">
+              <span>Time</span>
+              <strong>7:00 AM – 5:00 PM</strong>
+            </div>
+
+            <div class="program-meta-row">
+              <span>Venue</span>
+              <strong>CCA Covered Court</strong>
+            </div>
+          </div>
+
+          <div class="program-feature-actions">
+            <a href="events.html" class="btn btn-primary">View Events</a>
+            <a href="gallery.html" class="btn btn-ghost">View Gallery</a>
+          </div>
+
+        </div>
+
+      </article>
+
+    </div>
+  </section>
+
+  <div class="streaks" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
+
+  <!-- CTA -->
+  <section class="programs-shell">
+    <div class="wrap">
+
+      <div class="program-cta">
+        <span class="tag">GET INVOLVED</span>
+
+        <h2>Interested in a KINESIS program?</h2>
+
+        <p>
+          Contact us for program inquiries, future activities, participation details,
+          or possible collaboration opportunities.
+        </p>
+
+        <a href="contact.html" class="btn btn-primary">Contact KINESIS</a>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap" style="display:flex;flex-direction:column;gap:20px;width:100%;">
+
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+
+      <div class="foot-brand">
+        <img
+          src="assets/logo.png"
+          alt="KINESIS Organization logo"
+          style="width:22px;height:22px;object-fit:contain;"
+        >
+        KINESIS ORGANIZATION
+      </div>
+
+      <div style="display:flex;gap:12px;">
+        <a
+          href="https://www.facebook.com/profile.php?id=61588488886453"
+          target="_blank"
+          rel="noopener"
+          aria-label="KINESIS Organization on Facebook"
+          style="width:36px;height:36px;border-radius:50%;background:var(--panel);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;"
+        >
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="#C7CCD9">
+            <path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;border-top:1px solid var(--line);padding-top:20px;">
+
+      <p>© 2026 KINESIS Organization · City College of Angeles</p>
+
+      <div style="display:flex;gap:20px;font-size:13px;flex-wrap:wrap;">
+        <a href="events.html" style="color:var(--muted);">Events</a>
+        <a href="faq.html" style="color:var(--muted);">FAQ</a>
+        <a href="privacy.html" style="color:var(--muted);">Privacy Policy</a>
+        <a href="terms.html" style="color:var(--muted);">Terms of Use</a>
+      </div>
+
+    </div>
+
+  </div>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore-compat.js"></script>
+
+<script src="js/firebase-config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/chat.js"></script>
+<script src="js/ui-effects.js"></script>
+
+</body>
+</html>

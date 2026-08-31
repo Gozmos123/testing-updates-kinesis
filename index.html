@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>KINESIS Organization — Sports, Movement & Event Management</title>
+<meta name="description" content="KINESIS is a student-driven organization at City College of Angeles bringing together Physical Education, sports, movement, wellness, and event management through programs, training, and organized experiences.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+
+<style>
+  /* ========================================
+     HOMEPAGE DESKTOP ENHANCEMENTS
+  ======================================== */
+
+  /* Homepage section spacing */
+  #explore,
+  #featured-event,
+  #values,
+  #connect{
+    padding:82px 0;
+  }
+
+  #explore .section-head,
+  #featured-event .section-head,
+  #values .section-head{
+    margin-bottom:44px;
+  }
+
+  /* Explore cards: 3 on the first row, 2 centered below */
+  .home-explore-grid{
+    display:grid;
+    grid-template-columns:repeat(6,minmax(0,1fr));
+    gap:20px;
+  }
+
+  .home-explore-grid .program-card{
+    min-height:220px;
+    grid-column:span 2;
+  }
+
+  .home-explore-grid .program-card:nth-child(4){
+    grid-column:2 / span 2;
+  }
+
+  .home-explore-grid .program-card:nth-child(5){
+    grid-column:4 / span 2;
+  }
+
+  .home-explore-grid .program-card p{
+    margin-top:8px;
+  }
+
+  .featured-event-card{
+    display:grid;
+    grid-template-columns:1.05fr .95fr;
+    gap:0;
+    overflow:hidden;
+    border:1px solid var(--line);
+    border-radius:24px;
+    background:linear-gradient(145deg,rgba(18,21,42,.98),rgba(10,12,22,.98));
+  }
+
+  .featured-event-visual{
+    min-height:380px;
+    position:relative;
+    background:
+      linear-gradient(90deg,rgba(10,12,22,.18),rgba(10,12,22,.5)),
+      url('assets/pickleball-banner.jpg') center/cover no-repeat;
+  }
+
+  .featured-event-visual::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to top,rgba(10,12,22,.55),transparent 60%);
+  }
+
+  .featured-event-content{
+    padding:52px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+
+  .featured-event-content h2{
+    font-size:clamp(30px,3vw,44px);
+    line-height:1.08;
+    margin-bottom:18px;
+  }
+
+  .featured-event-content p{
+    color:var(--muted);
+    font-size:16px;
+    line-height:1.7;
+    max-width:520px;
+  }
+
+  .featured-event-actions{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    margin-top:30px;
+  }
+
+  .values-grid{
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:20px;
+  }
+
+  .value-card{
+    padding:28px;
+    min-height:190px;
+    border-radius:20px;
+    border:1px solid var(--line);
+    background:var(--panel);
+    transition:transform .2s ease,border-color .2s ease;
+  }
+
+  .value-card:hover{
+    transform:translateY(-4px);
+    border-color:var(--blue);
+  }
+
+  .value-number{
+    display:block;
+    margin-bottom:18px;
+    color:var(--blue);
+    font-family:'Rajdhani',sans-serif;
+    font-weight:700;
+    font-size:13px;
+    letter-spacing:.18em;
+  }
+
+  .value-card h3{
+    font-size:23px;
+    margin-bottom:10px;
+  }
+
+  .value-card p{
+    color:var(--muted);
+    font-size:14.5px;
+    line-height:1.65;
+  }
+
+  .home-contact-cta{
+    position:relative;
+    overflow:hidden;
+    padding:58px;
+    border:1px solid var(--line);
+    border-radius:26px;
+    background:
+      radial-gradient(circle at 85% 20%,rgba(155,63,224,.22),transparent 34%),
+      radial-gradient(circle at 10% 85%,rgba(47,168,255,.18),transparent 32%),
+      var(--panel);
+    text-align:center;
+  }
+
+  .home-contact-cta h2{
+    font-size:clamp(30px,4vw,46px);
+    margin:0 auto 16px;
+    max-width:760px;
+  }
+
+  .home-contact-cta p{
+    max-width:680px;
+    margin:0 auto;
+    color:var(--muted);
+    font-size:16px;
+    line-height:1.7;
+  }
+
+  .home-contact-cta .btn{
+    margin-top:30px;
+  }
+
+  @media (max-width:1100px){
+    .home-explore-grid{
+      grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+
+    .home-explore-grid .program-card,
+    .home-explore-grid .program-card:nth-child(4),
+    .home-explore-grid .program-card:nth-child(5){
+      grid-column:auto;
+    }
+  }
+
+  @media (max-width:860px){
+    #explore,
+    #featured-event,
+    #values,
+    #connect{
+      padding:68px 0;
+    }
+
+    #explore .section-head,
+    #featured-event .section-head,
+    #values .section-head{
+      margin-bottom:36px;
+    }
+
+    .home-explore-grid{
+      grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+
+    .featured-event-card{
+      grid-template-columns:1fr;
+    }
+
+    .featured-event-visual{
+      min-height:300px;
+    }
+
+    .featured-event-content{
+      padding:34px 26px;
+    }
+
+    .values-grid{
+      grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+
+    .home-contact-cta{
+      padding:42px 28px;
+    }
+  }
+
+  @media (max-width:560px){
+    .home-explore-grid,
+    .values-grid{
+      grid-template-columns:1fr;
+    }
+
+    .home-explore-grid .program-card{
+      min-height:auto;
+    }
+  }
+</style>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S6P4B00FM9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-S6P4B00FM9');
+</script>
+</head>
+
+<body>
+
+<header id="siteHeader">
+  <nav class="wrap">
+
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="KINESIS Organization logo" class="brand-logo">
+      KINESIS
+    </a>
+
+    <div class="navlinks">
+      <a href="index.html" class="active">Home</a>
+
+      <div class="nav-dropdown">
+        <a href="about.html" class="dropdown-toggle">
+          About Us <span class="dropdown-arrow">▾</span>
+        </a>
+
+        <div class="dropdown-menu">
+          <a href="about.html">About KINESIS</a>
+          <a href="mission-vision.html">Mission &amp; Vision</a>
+          <a href="advocacies.html">Our Advocacies</a>
+          <a href="team.html">Our Team</a>
+        </div>
+      </div>
+
+      <a href="programs.html">Programs</a>
+      <a href="products.html">Products</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="events.html">Events</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <div class="nav-right">
+      <div id="navAuthLoggedOut" style="display:flex;gap:10px;">
+        <a href="login.html" class="navghost">Log In</a>
+        <a href="signup.html" class="navcta">Sign Up</a>
+      </div>
+
+      <div id="navAuthLoggedIn" style="display:none;align-items:center;gap:14px;">
+        <a href="dashboard.html" class="navghost">Dashboard</a>
+        <a href="resources.html" class="navghost">Resources</a>
+        <a href="profile.html" class="nav-profile">
+          <span class="avatar" id="navAvatarInitial">K</span>
+          <span id="navUserName">Member</span>
+        </a>
+        <button class="navghost logoutBtn" type="button">Log Out</button>
+      </div>
+    </div>
+
+    <button
+      class="burger"
+      id="burgerBtn"
+      type="button"
+      aria-label="Open menu"
+    >
+      ☰
+    </button>
+
+  </nav>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-ring" aria-hidden="true"></div>
+
+    <div class="wrap">
+      <div class="hero-inner">
+        <span class="eyebrow">CITY COLLEGE OF ANGELES · STUDENT-DRIVEN ORGANIZATION</span>
+
+        <h1>
+          Move with purpose.<br>
+          <em>Create with impact.</em>
+        </h1>
+
+        <p>
+          KINESIS brings together Physical Education, sports, movement, and event management
+          to create organized, engaging, and meaningful experiences through training,
+          programs, and professionally planned events.
+        </p>
+
+        <div class="hero-ctas">
+          <a href="programs.html" class="btn btn-primary">Explore Our Programs</a>
+          <a href="about.html" class="btn btn-ghost">About KINESIS</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="streaks" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
+
+  <!-- EXPLORE -->
+  <section id="explore">
+    <div class="wrap">
+
+      <div class="section-head">
+        <span class="tag">EXPLORE</span>
+        <h2>Everything KINESIS, in one place</h2>
+        <p>
+          Discover our organization, programs, events, products, and the experiences we create.
+        </p>
+      </div>
+
+      <div class="home-explore-grid">
+
+        <a href="about.html" class="program-card">
+          <div class="program-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M12 16v-4M12 8h.01"/>
+            </svg>
+          </div>
+          <h3>About KINESIS</h3>
+          <p>Who we are, our mission, vision, and advocacies.</p>
+        </a>
+
+        <a href="programs.html" class="program-card">
+          <div class="program-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 21h8M12 17v4M7 4h10v6a5 5 0 0 1-10 0V4Z"/>
+            </svg>
+          </div>
+          <h3>Programs</h3>
+          <p>Training, seminars, workshops, and learning experiences.</p>
+        </a>
+
+        <a href="events.html" class="program-card">
+          <div class="program-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="5" width="18" height="16" rx="2"/>
+              <path d="M16 3v4M8 3v4M3 10h18"/>
+            </svg>
+          </div>
+          <h3>Events</h3>
+          <p>Upcoming activities, sporting events, and KINESIS experiences.</p>
+        </a>
+
+        <a href="products.html" class="program-card">
+          <div class="program-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 7 9 18l-5-5"/>
+            </svg>
+          </div>
+          <h3>Products</h3>
+          <p>Selected recovery, wellness, and performance essentials.</p>
+        </a>
+
+        <a href="gallery.html" class="program-card">
+          <div class="program-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 3h18v18H3z"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <path d="m21 15-5-5L5 21"/>
+            </svg>
+          </div>
+          <h3>Gallery</h3>
+          <p>Highlights and memorable moments from our activities.</p>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="streaks" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
+
+  <!-- FEATURED / UPCOMING EVENTS -->
+  <section id="featured-event">
+    <div class="wrap">
+
+      <div class="section-head">
+        <span class="tag">UP NEXT</span>
+        <h2>Experience KINESIS in action</h2>
+        <p>
+          Explore upcoming seminars, sporting activities, workshops, and organization events.
+        </p>
+      </div>
+
+      <div class="featured-event-card">
+
+        <div
+          class="featured-event-visual"
+          role="img"
+          aria-label="Pickleball court and equipment representing KINESIS sports and event activities">
+        </div>
+
+        <div class="featured-event-content">
+          <span class="eyebrow">KINESIS EVENTS</span>
+          <h2>Movement, learning, and organized experiences</h2>
+
+          <p>
+            From sports-centered programs to seminars and event-management activities,
+            KINESIS creates opportunities for participants to learn, move, collaborate,
+            and experience professionally organized events.
+          </p>
+
+          <div class="featured-event-actions">
+            <a href="events.html" class="btn btn-primary">View Upcoming Events</a>
+            <a href="programs.html" class="btn btn-ghost">Explore Programs</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section id="values">
+    <div class="wrap">
+
+      <div class="section-head">
+        <span class="tag">WHAT DRIVES US</span>
+        <h2>Built around movement and meaningful experiences</h2>
+        <p>
+          Our work is guided by principles that support organized events, active participation,
+          professional development, and positive experiences.
+        </p>
+      </div>
+
+      <div class="values-grid">
+
+        <article class="value-card">
+          <span class="value-number">01 · MOVEMENT</span>
+          <h3>Purposeful Action</h3>
+          <p>
+            We connect movement science, physical activity, and practical participation in the experiences we create.
+          </p>
+        </article>
+
+        <article class="value-card">
+          <span class="value-number">02 · PROFESSIONALISM</span>
+          <h3>Organized Execution</h3>
+          <p>
+            We value preparation, clear responsibilities, effective coordination, and dependable event operations.
+          </p>
+        </article>
+
+        <article class="value-card">
+          <span class="value-number">03 · TEAMWORK</span>
+          <h3>Shared Responsibility</h3>
+          <p>
+            Strong communication and collaboration allow every department and participant to work toward a common goal.
+          </p>
+        </article>
+
+        <article class="value-card">
+          <span class="value-number">04 · WELLNESS</span>
+          <h3>Better Experiences</h3>
+          <p>
+            We promote safe, active, and engaging environments that support participation, learning, and well-being.
+          </p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="streaks" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
+
+  <!-- CONTACT CTA -->
+  <section id="connect">
+    <div class="wrap">
+
+      <div class="home-contact-cta">
+        <span class="tag">CONNECT WITH KINESIS</span>
+
+        <h2>Participate. Collaborate. Create something meaningful.</h2>
+
+        <p>
+          Whether you want to join an activity, learn more about our programs,
+          or explore a possible collaboration, we would be glad to hear from you.
+        </p>
+
+        <a href="contact.html" class="btn btn-primary">Contact KINESIS</a>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap" style="display:flex;flex-direction:column;gap:20px;width:100%;">
+
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+
+      <div class="foot-brand">
+        <img
+          src="assets/logo.png"
+          alt="KINESIS Organization logo"
+          style="width:22px;height:22px;object-fit:contain;"
+        >
+        KINESIS ORGANIZATION
+      </div>
+
+      <div style="display:flex;gap:12px;">
+        <a
+          href="https://www.facebook.com/profile.php?id=61588488886453"
+          target="_blank"
+          rel="noopener"
+          aria-label="KINESIS Organization on Facebook"
+          style="width:36px;height:36px;border-radius:50%;background:var(--panel);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;"
+        >
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="#C7CCD9">
+            <path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;border-top:1px solid var(--line);padding-top:20px;">
+
+      <p>© 2026 KINESIS Organization · City College of Angeles</p>
+
+      <div style="display:flex;gap:20px;font-size:13px;flex-wrap:wrap;">
+        <a href="events.html" style="color:var(--muted);">Events</a>
+        <a href="faq.html" style="color:var(--muted);">FAQ</a>
+        <a href="privacy.html" style="color:var(--muted);">Privacy Policy</a>
+        <a href="terms.html" style="color:var(--muted);">Terms of Use</a>
+      </div>
+
+    </div>
+
+  </div>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore-compat.js"></script>
+
+<script src="js/firebase-config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/chat.js"></script>
+<script src="js/ui-effects.js"></script>
+
+</body>
+</html>

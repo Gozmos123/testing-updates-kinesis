@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin — KINESIS Organization</title>
+<meta name="description" content="KINESIS Organization administrator dashboard for reviewing website event registrations.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+
+<style>
+  /* ========================================
+     KINESIS ADMIN DASHBOARD — PC FIRST
+  ======================================== */
+
+  .admin-page{
+    padding:142px 0 88px;
+  }
+
+  .admin-header{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:24px;
+    margin-bottom:30px;
+  }
+
+  .admin-header h1{
+    font-size:clamp(38px,5vw,54px);
+    line-height:1;
+    margin:8px 0 12px;
+  }
+
+  .admin-header p{
+    max-width:680px;
+    color:var(--muted);
+    font-size:14.5px;
+    line-height:1.65;
+  }
+
+  .admin-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    padding:8px 11px;
+    flex:0 0 auto;
+    border-radius:999px;
+    color:#83e6a5;
+    background:rgba(80,200,120,.09);
+    border:1px solid rgba(80,200,120,.22);
+    font-size:10.5px;
+    font-weight:700;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+  }
+
+  .admin-stats{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:16px;
+    margin-bottom:24px;
+  }
+
+  .admin-stat{
+    padding:22px;
+    border:1px solid var(--line);
+    border-radius:17px;
+    background:var(--panel);
+  }
+
+  .admin-stat span{
+    display:block;
+    color:var(--muted);
+    font-size:10.5px;
+    font-weight:700;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+  }
+
+  .admin-stat strong{
+    display:block;
+    margin-top:7px;
+    color:#fff;
+    font-family:'Rajdhani',sans-serif;
+    font-size:31px;
+    line-height:1;
+  }
+
+  .admin-panel{
+    border:1px solid var(--line);
+    border-radius:22px;
+    background:var(--panel);
+    overflow:hidden;
+  }
+
+  .admin-panel-head{
+    padding:24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:18px;
+    border-bottom:1px solid var(--line);
+  }
+
+  .admin-panel-head h2{
+    font-size:25px;
+    margin-bottom:5px;
+  }
+
+  .admin-panel-head p{
+    color:var(--muted);
+    font-size:12.5px;
+    line-height:1.55;
+  }
+
+  .admin-search-wrap{
+    position:relative;
+    width:min(320px,100%);
+    flex:0 0 auto;
+  }
+
+  .admin-search{
+    width:100%;
+    height:44px;
+    padding:0 42px 0 14px;
+    color:#fff;
+    background:#0a0f1d;
+    border:1px solid #2d3550;
+    border-radius:11px;
+    outline:none;
+    font:inherit;
+    font-size:13px;
+  }
+
+  .admin-search:focus{
+    border-color:var(--blue);
+    box-shadow:0 0 0 3px rgba(47,168,255,.10);
+  }
+
+  .admin-search-icon{
+    position:absolute;
+    top:50%;
+    right:13px;
+    transform:translateY(-50%);
+    color:var(--blue);
+    pointer-events:none;
+  }
+
+  .admin-table-wrap{
+    overflow-x:auto;
+  }
+
+  #regTable{
+    width:100%;
+    border-collapse:collapse;
+    min-width:760px;
+  }
+
+  #regTable th,
+  #regTable td{
+    padding:15px 18px;
+    text-align:left;
+    border-bottom:1px solid var(--line);
+  }
+
+  #regTable th{
+    color:var(--muted);
+    background:#0d1222;
+    font-family:'Rajdhani',sans-serif;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.07em;
+    text-transform:uppercase;
+  }
+
+  #regTable td{
+    color:var(--silver);
+    font-size:13px;
+    line-height:1.5;
+  }
+
+  #regTable tbody tr:hover{
+    background:rgba(47,168,255,.035);
+  }
+
+  #regTable tbody tr:last-child td{
+    border-bottom:0;
+  }
+
+  .admin-event-tag{
+    display:inline-flex;
+    padding:5px 8px;
+    border-radius:999px;
+    border:1px solid rgba(47,168,255,.20);
+    background:rgba(47,168,255,.07);
+    color:var(--blue);
+    font-size:10px;
+    font-weight:700;
+  }
+
+  .admin-empty{
+    color:var(--muted)!important;
+    text-align:center!important;
+    padding:36px 18px!important;
+  }
+
+  .admin-security-note{
+    margin-top:22px;
+    padding:20px 22px;
+    border-left:3px solid #f1d96b;
+    border-radius:0 14px 14px 0;
+    background:rgba(241,217,107,.055);
+  }
+
+  .admin-security-note strong{
+    display:block;
+    margin-bottom:6px;
+    color:#f1d96b;
+    font-size:13px;
+  }
+
+  .admin-security-note p{
+    color:var(--muted);
+    font-size:12.5px;
+    line-height:1.65;
+  }
+
+  /* ---------- Restricted state ---------- */
+
+  .admin-denied{
+    min-height:calc(100vh - 80px);
+    padding:160px 20px 90px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+  }
+
+  .admin-denied-card{
+    width:min(520px,100%);
+    padding:42px 34px;
+    border:1px solid var(--line);
+    border-radius:22px;
+    background:var(--panel);
+  }
+
+  .admin-denied-icon{
+    width:64px;
+    height:64px;
+    margin:0 auto 18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    border:1px solid rgba(255,120,135,.22);
+    background:rgba(255,120,135,.07);
+    color:#ff8e9c;
+    font-size:25px;
+  }
+
+  .admin-denied h1{
+    font-size:34px;
+    margin-bottom:10px;
+  }
+
+  .admin-denied p{
+    color:var(--muted);
+    font-size:13.5px;
+    line-height:1.65;
+  }
+
+  .admin-denied-actions{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:22px;
+  }
+
+  @media (max-width:900px){
+    .admin-stats{
+      grid-template-columns:1fr;
+    }
+
+    .admin-header{
+      flex-direction:column;
+      align-items:flex-start;
+    }
+
+    .admin-panel-head{
+      flex-direction:column;
+      align-items:flex-start;
+    }
+
+    .admin-search-wrap{
+      width:100%;
+    }
+  }
+
+  @media (max-width:600px){
+    .admin-page{
+      padding:112px 0 70px;
+    }
+
+    .admin-panel-head{
+      padding:20px;
+    }
+  }
+</style>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S6P4B00FM9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-S6P4B00FM9');
+</script>
+</head>
+
+<body>
+
+<header id="siteHeader">
+  <nav class="wrap">
+
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="KINESIS Organization logo" class="brand-logo">
+      KINESIS
+    </a>
+
+    <div class="navlinks">
+      <a href="index.html">Home</a>
+
+      <div class="nav-dropdown">
+        <a href="about.html" class="dropdown-toggle">
+          About Us <span class="dropdown-arrow">▾</span>
+        </a>
+
+        <div class="dropdown-menu">
+          <a href="about.html">About KINESIS</a>
+          <a href="mission-vision.html">Mission &amp; Vision</a>
+          <a href="advocacies.html">Our Advocacies</a>
+          <a href="team.html">Our Team</a>
+        </div>
+      </div>
+
+      <a href="programs.html">Programs</a>
+      <a href="products.html">Products</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="events.html">Events</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <div class="nav-right">
+      <div id="navAuthLoggedOut" style="display:flex;gap:10px;">
+        <a href="login.html" class="navghost">Log In</a>
+        <a href="signup.html" class="navcta">Sign Up</a>
+      </div>
+
+      <div id="navAuthLoggedIn" style="display:none;align-items:center;gap:14px;">
+        <a href="dashboard.html" class="navghost">Dashboard</a>
+        <a href="resources.html" class="navghost">Resources</a>
+
+        <a href="profile.html" class="nav-profile">
+          <span class="avatar" id="navAvatarInitial">K</span>
+          <span id="navUserName">Member</span>
+        </a>
+
+        <button class="navghost logoutBtn" type="button">Log Out</button>
+      </div>
+    </div>
+
+    <button
+      class="burger"
+      id="burgerBtn"
+      type="button"
+      aria-label="Open menu">
+      ☰
+    </button>
+
+  </nav>
+</header>
+
+<main>
+
+  <!-- ACCESS DENIED -->
+  <div id="adminDenied" class="admin-denied" style="display:none;">
+    <div class="admin-denied-card">
+
+      <div class="admin-denied-icon">!</div>
+
+      <span class="tag">RESTRICTED AREA</span>
+      <h1>Admin access required</h1>
+
+      <p>
+        This page is reserved for authorized KINESIS administrators.
+        Your current account does not have access to this dashboard.
+      </p>
+
+      <div class="admin-denied-actions">
+        <a href="dashboard.html" class="btn btn-primary">Member Dashboard</a>
+        <a href="contact.html" class="btn btn-ghost">Contact KINESIS</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ADMIN DASHBOARD -->
+  <div id="adminShell" class="admin-page" style="display:none;">
+    <div class="wrap">
+
+      <div class="admin-header">
+
+        <div>
+          <span class="eyebrow">KINESIS ADMIN</span>
+          <h1>Registration Management</h1>
+
+          <p>
+            Review website event-registration records stored in Firebase.
+            This page is intended for authorized administrative use only.
+          </p>
+        </div>
+
+        <span class="admin-badge">Authorized Admin</span>
+
+      </div>
+
+      <div class="admin-stats">
+
+        <div class="admin-stat">
+          <span>Total Registrations</span>
+          <strong id="totalRegistrations">—</strong>
+        </div>
+
+        <div class="admin-stat">
+          <span>Events Represented</span>
+          <strong id="totalEvents">—</strong>
+        </div>
+
+        <div class="admin-stat">
+          <span>Current View</span>
+          <strong id="visibleRegistrations">—</strong>
+        </div>
+
+      </div>
+
+      <section class="admin-panel">
+
+        <div class="admin-panel-head">
+
+          <div>
+            <h2>Event Registrations</h2>
+            <p>
+              Registration records are listed from newest to oldest.
+            </p>
+          </div>
+
+          <div class="admin-search-wrap">
+            <input
+              id="adminSearch"
+              class="admin-search"
+              type="search"
+              placeholder="Search name, email, or event..."
+              aria-label="Search registrations">
+
+            <span class="admin-search-icon">⌕</span>
+          </div>
+
+        </div>
+
+        <div class="admin-table-wrap">
+          <table id="regTable">
+
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Event</th>
+                <th>Registered</th>
+              </tr>
+            </thead>
+
+            <tbody id="regBody">
+              <tr>
+                <td colspan="4" class="admin-empty">Loading registrations...</td>
+              </tr>
+            </tbody>
+
+          </table>
+        </div>
+
+      </section>
+
+      <div class="admin-security-note">
+        <strong>Security reminder</strong>
+
+        <p>
+          This page hides the admin interface from unauthorized users, but client-side
+          JavaScript alone is not a security boundary. Firebase Firestore Security Rules
+          should also restrict registration data so only authorized administrators can read it.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore-compat.js"></script>
+
+<script src="js/firebase-config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/nav.js"></script>
+
+<script>
+  /* ========================================
+     ADMIN ACCESS
+     IMPORTANT:
+     This client-side list preserves the access behavior
+     from the current site. Firestore Security Rules must
+     also enforce authorization for real data security.
+  ======================================== */
+
+  const ADMIN_EMAILS = [
+    "e.amberdawn@gmail.com"
+  ];
+
+  const registrationRows = [];
+
+  auth.onAuthStateChanged(async function(user) {
+
+    if (!user) {
+      window.location.href = "login.html";
+      return;
+    }
+
+    if (!ADMIN_EMAILS.includes(user.email)) {
+      document.getElementById("adminDenied").style.display = "flex";
+      return;
+    }
+
+    document.getElementById("adminShell").style.display = "block";
+
+    try {
+
+      const snapshot =
+        await db.collection("registrations")
+          .orderBy("registeredAt", "desc")
+          .get();
+
+      registrationRows.length = 0;
+
+      snapshot.forEach(function(doc) {
+
+        const data = doc.data();
+
+        registrationRows.push({
+          name: data.name || "—",
+          email: data.email || "—",
+          eventId: data.eventId || "Unspecified event",
+          registeredAt: data.registeredAt || null
+        });
+
+      });
+
+      renderRegistrations(registrationRows);
+      updateStats(registrationRows, registrationRows.length);
+
+    } catch (error) {
+
+      console.error(error);
+
+      document.getElementById("regBody").innerHTML =
+        '<tr><td colspan="4" class="admin-empty" style="color:var(--error)!important;">Could not load registrations.</td></tr>';
+
+      document.getElementById("totalRegistrations").textContent = "0";
+      document.getElementById("totalEvents").textContent = "0";
+      document.getElementById("visibleRegistrations").textContent = "0";
+
+    }
+
+  });
+
+
+  /* ========================================
+     RENDER REGISTRATIONS
+  ======================================== */
+
+  function renderRegistrations(rows) {
+
+    const body =
+      document.getElementById("regBody");
+
+    if (!rows.length) {
+
+      body.innerHTML =
+        '<tr><td colspan="4" class="admin-empty">No registrations found.</td></tr>';
+
+      document.getElementById("visibleRegistrations").textContent = "0";
+      return;
+    }
+
+    body.innerHTML = "";
+
+    rows.forEach(function(record) {
+
+      const row =
+        document.createElement("tr");
+
+      const formattedDate =
+        record.registeredAt &&
+        typeof record.registeredAt.toDate === "function"
+          ? record.registeredAt.toDate().toLocaleDateString(
+              "en-US",
+              {
+                month: "short",
+                day: "numeric",
+                year: "numeric"
+              }
+            )
+          : "—";
+
+      row.innerHTML =
+        "<td>" + escapeHtml(record.name) + "</td>" +
+        "<td>" + escapeHtml(record.email) + "</td>" +
+        '<td><span class="admin-event-tag">' +
+          escapeHtml(formatEventName(record.eventId)) +
+        "</span></td>" +
+        "<td>" + escapeHtml(formattedDate) + "</td>";
+
+      body.appendChild(row);
+
+    });
+
+    document.getElementById("visibleRegistrations").textContent =
+      String(rows.length);
+
+  }
+
+
+  /* ========================================
+     STATS
+  ======================================== */
+
+  function updateStats(rows, visibleCount) {
+
+    const uniqueEvents =
+      new Set(
+        rows.map(function(record) {
+          return record.eventId;
+        })
+      );
+
+    document.getElementById("totalRegistrations").textContent =
+      String(rows.length);
+
+    document.getElementById("totalEvents").textContent =
+      String(uniqueEvents.size);
+
+    document.getElementById("visibleRegistrations").textContent =
+      String(visibleCount);
+
+  }
+
+
+  /* ========================================
+     SEARCH
+  ======================================== */
+
+  const adminSearch =
+    document.getElementById("adminSearch");
+
+  if (adminSearch) {
+
+    adminSearch.addEventListener("input", function() {
+
+      const query =
+        adminSearch.value.toLowerCase().trim();
+
+      const filtered =
+        registrationRows.filter(function(record) {
+
+          const haystack =
+            (
+              record.name + " " +
+              record.email + " " +
+              record.eventId + " " +
+              formatEventName(record.eventId)
+            ).toLowerCase();
+
+          return !query || haystack.includes(query);
+
+        });
+
+      renderRegistrations(filtered);
+
+    });
+
+  }
+
+
+  /* ========================================
+     HELPERS
+  ======================================== */
+
+  function formatEventName(eventId) {
+
+    if (eventId === "smash-and-paddle-2026-04-29") {
+      return "Smash and Paddle";
+    }
+
+    return String(eventId)
+      .replace(/[-_]+/g, " ")
+      .replace(/\b\w/g, function(letter) {
+        return letter.toUpperCase();
+      });
+
+  }
+
+  function escapeHtml(value) {
+
+    const div =
+      document.createElement("div");
+
+    div.textContent =
+      String(value ?? "");
+
+    return div.innerHTML;
+
+  }
+</script>
+
+<script src="js/ui-effects.js"></script>
+</body>
+</html>

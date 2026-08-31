@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Profile — KINESIS Organization</title>
+<meta name="description" content="View and manage your KINESIS Organization member profile and account information.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+
+<style>
+  /* ========================================
+     KINESIS MEMBER PROFILE — PC FIRST
+  ======================================== */
+
+  .profile-page{
+    padding:142px 0 86px;
+  }
+
+  .profile-layout{
+    display:grid;
+    grid-template-columns:320px 1fr;
+    gap:24px;
+    align-items:start;
+  }
+
+  .profile-side,
+  .profile-main{
+    border:1px solid var(--line);
+    border-radius:22px;
+    background:var(--panel);
+  }
+
+  /* ---------- Left profile summary ---------- */
+
+  .profile-side{
+    padding:30px;
+    text-align:center;
+  }
+
+  .profile-avatar-large{
+    width:92px;
+    height:92px;
+    margin:0 auto 16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--blue),var(--purple));
+    color:#fff;
+    font-family:'Rajdhani',sans-serif;
+    font-size:38px;
+    font-weight:700;
+    box-shadow:0 0 0 4px rgba(47,168,255,.10);
+  }
+
+  .profile-member-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    padding:7px 11px;
+    border-radius:999px;
+    color:#f1d96b;
+    background:rgba(241,217,107,.07);
+    border:1px solid rgba(241,217,107,.22);
+    font-size:10.5px;
+    font-weight:700;
+    letter-spacing:.07em;
+    text-transform:uppercase;
+  }
+
+  .profile-side h1{
+    margin-top:16px;
+    font-size:30px;
+    line-height:1.08;
+    word-break:break-word;
+  }
+
+  .profile-meta{
+    margin-top:7px;
+    color:var(--muted);
+    font-size:12.5px;
+    line-height:1.6;
+    word-break:break-word;
+  }
+
+  .profile-divider{
+    height:1px;
+    background:var(--line);
+    margin:24px 0;
+  }
+
+  .profile-summary-list{
+    display:grid;
+    gap:14px;
+    text-align:left;
+  }
+
+  .profile-summary-row{
+    padding-bottom:14px;
+    border-bottom:1px solid var(--line);
+  }
+
+  .profile-summary-row:last-child{
+    padding-bottom:0;
+    border-bottom:0;
+  }
+
+  .profile-summary-label{
+    display:block;
+    color:var(--muted);
+    font-size:10.5px;
+    font-weight:700;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+  }
+
+  .profile-summary-value{
+    display:block;
+    margin-top:4px;
+    color:var(--silver);
+    font-size:13px;
+    line-height:1.5;
+  }
+
+  /* ---------- Main profile editor ---------- */
+
+  .profile-main{
+    padding:34px;
+  }
+
+  .profile-main-head{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:18px;
+    margin-bottom:28px;
+  }
+
+  .profile-main-head h2{
+    font-size:30px;
+    line-height:1.05;
+    margin-bottom:8px;
+  }
+
+  .profile-main-head p{
+    color:var(--muted);
+    font-size:13.5px;
+    line-height:1.65;
+    max-width:620px;
+  }
+
+  .profile-status-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    padding:7px 11px;
+    flex:0 0 auto;
+    border-radius:999px;
+    color:#83e6a5;
+    background:rgba(80,200,120,.09);
+    border:1px solid rgba(80,200,120,.22);
+    font-size:10.5px;
+    font-weight:700;
+    letter-spacing:.07em;
+    text-transform:uppercase;
+  }
+
+  .profile-fields{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+  }
+
+  .profile-field{
+    display:grid;
+    gap:8px;
+  }
+
+  .profile-field.full{
+    grid-column:1 / -1;
+  }
+
+  .profile-field label{
+    color:var(--silver);
+    font-size:11.5px;
+    font-weight:700;
+    letter-spacing:.04em;
+  }
+
+  .profile-field input,
+  .profile-field textarea{
+    width:100%;
+    color:var(--white);
+    background:#0a0f1d;
+    border:1px solid #2d3550;
+    border-radius:12px;
+    outline:none;
+    font:inherit;
+    transition:border-color .18s ease,box-shadow .18s ease;
+  }
+
+  .profile-field input{
+    height:50px;
+    padding:0 15px;
+  }
+
+  .profile-field textarea{
+    min-height:120px;
+    padding:14px 15px;
+    resize:vertical;
+  }
+
+  .profile-field input:focus,
+  .profile-field textarea:focus{
+    border-color:var(--blue);
+    box-shadow:0 0 0 3px rgba(47,168,255,.10);
+  }
+
+  .profile-field input:disabled{
+    opacity:.72;
+    cursor:not-allowed;
+  }
+
+  .profile-field-hint{
+    color:#6f7893;
+    font-size:11px;
+    line-height:1.5;
+  }
+
+  .profile-actions{
+    grid-column:1 / -1;
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    align-items:center;
+    padding-top:4px;
+  }
+
+  #saveProfileBtn{
+    min-width:160px;
+  }
+
+  .form-status{
+    min-height:22px;
+    grid-column:1 / -1;
+    font-size:13px;
+    line-height:1.5;
+  }
+
+  /* ---------- Member tools ---------- */
+
+  .profile-tools{
+    margin-top:24px;
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:14px;
+  }
+
+  .profile-tool{
+    display:block;
+    padding:18px;
+    border:1px solid var(--line);
+    border-radius:15px;
+    background:#0d1222;
+    transition:transform .18s ease,border-color .18s ease;
+  }
+
+  .profile-tool:hover{
+    transform:translateY(-2px);
+    border-color:var(--blue);
+  }
+
+  .profile-tool span{
+    display:block;
+    margin-bottom:8px;
+    color:var(--blue);
+    font-size:10.5px;
+    font-weight:700;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+  }
+
+  .profile-tool strong{
+    display:block;
+    color:var(--silver);
+    font-size:14px;
+  }
+
+  .profile-tool small{
+    display:block;
+    margin-top:5px;
+    color:var(--muted);
+    font-size:11.5px;
+    line-height:1.5;
+  }
+
+  /* ---------- Security / account note ---------- */
+
+  .profile-security{
+    margin-top:24px;
+    padding:24px;
+    border:1px solid rgba(47,168,255,.20);
+    border-radius:17px;
+    background:
+      linear-gradient(135deg,rgba(47,168,255,.07),rgba(155,63,224,.05));
+  }
+
+  .profile-security h3{
+    font-size:20px;
+    margin-bottom:7px;
+  }
+
+  .profile-security p{
+    color:var(--muted);
+    font-size:12.5px;
+    line-height:1.65;
+  }
+
+  @media (max-width:900px){
+    .profile-layout{
+      grid-template-columns:1fr;
+    }
+
+    .profile-tools{
+      grid-template-columns:1fr;
+    }
+  }
+
+  @media (max-width:640px){
+    .profile-page{
+      padding:112px 0 70px;
+    }
+
+    .profile-main,
+    .profile-side{
+      padding:24px;
+    }
+
+    .profile-main-head{
+      flex-direction:column;
+    }
+
+    .profile-fields{
+      grid-template-columns:1fr;
+    }
+
+    .profile-field.full,
+    .profile-actions,
+    .form-status{
+      grid-column:auto;
+    }
+  }
+</style>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S6P4B00FM9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-S6P4B00FM9');
+</script>
+</head>
+
+<body>
+
+<header id="siteHeader">
+  <nav class="wrap">
+
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="KINESIS Organization logo" class="brand-logo">
+      KINESIS
+    </a>
+
+    <div class="navlinks">
+      <a href="index.html">Home</a>
+
+      <div class="nav-dropdown">
+        <a href="about.html" class="dropdown-toggle">
+          About Us <span class="dropdown-arrow">▾</span>
+        </a>
+
+        <div class="dropdown-menu">
+          <a href="about.html">About KINESIS</a>
+          <a href="mission-vision.html">Mission &amp; Vision</a>
+          <a href="advocacies.html">Our Advocacies</a>
+          <a href="team.html">Our Team</a>
+        </div>
+      </div>
+
+      <a href="programs.html">Programs</a>
+      <a href="products.html">Products</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="events.html">Events</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <div class="nav-right">
+      <div id="navAuthLoggedOut" style="display:flex;gap:10px;">
+        <a href="login.html" class="navghost">Log In</a>
+        <a href="signup.html" class="navcta">Sign Up</a>
+      </div>
+
+      <div id="navAuthLoggedIn" style="display:none;align-items:center;gap:14px;">
+        <a href="dashboard.html" class="navghost">Dashboard</a>
+        <a href="resources.html" class="navghost">Resources</a>
+
+        <a href="profile.html" class="nav-profile active">
+          <span class="avatar" id="navAvatarInitial">K</span>
+          <span id="navUserName">Member</span>
+        </a>
+
+        <button class="navghost logoutBtn" type="button">Log Out</button>
+      </div>
+    </div>
+
+    <button
+      class="burger"
+      id="burgerBtn"
+      type="button"
+      aria-label="Open menu">
+      ☰
+    </button>
+
+  </nav>
+</header>
+
+<main>
+
+  <section class="profile-page">
+    <div class="wrap">
+
+      <div class="profile-layout">
+
+        <!-- PROFILE SUMMARY -->
+        <aside class="profile-side" id="profileCard">
+
+          <div
+            class="profile-avatar-large"
+            id="profileInitial">
+            K
+          </div>
+
+          <span class="profile-member-badge">
+            KINESIS Member
+          </span>
+
+          <h1 id="profileName">Loading...</h1>
+
+          <p class="profile-meta" id="profileEmail"></p>
+          <p class="profile-meta" id="profileJoined"></p>
+
+          <div class="profile-divider"></div>
+
+          <div class="profile-summary-list">
+
+            <div class="profile-summary-row">
+              <span class="profile-summary-label">Organization</span>
+              <span class="profile-summary-value">KINESIS Organization</span>
+            </div>
+
+            <div class="profile-summary-row">
+              <span class="profile-summary-label">Account Type</span>
+              <span class="profile-summary-value">Member Account</span>
+            </div>
+
+            <div class="profile-summary-row">
+              <span class="profile-summary-label">Access</span>
+              <span class="profile-summary-value">Dashboard &amp; Resources</span>
+            </div>
+
+          </div>
+
+          <button
+            class="btn btn-ghost btn-block logoutBtn"
+            type="button"
+            style="margin-top:24px;cursor:pointer;">
+            Log Out
+          </button>
+
+        </aside>
+
+        <!-- PROFILE EDITOR -->
+        <section class="profile-main">
+
+          <div class="profile-main-head">
+            <div>
+              <span class="tag">MY ACCOUNT</span>
+              <h2>Profile Information</h2>
+
+              <p>
+                Keep your member name and profile information updated.
+                Your email address is connected to your authenticated account.
+              </p>
+            </div>
+
+            <span class="profile-status-badge">
+              Active Account
+            </span>
+          </div>
+
+          <div class="profile-fields">
+
+            <div class="profile-field">
+              <label for="editName">FULL NAME</label>
+
+              <input
+                type="text"
+                id="editName"
+                placeholder="Your full name"
+                autocomplete="name">
+            </div>
+
+            <div class="profile-field">
+              <label>ORGANIZATION</label>
+
+              <input
+                type="text"
+                value="KINESIS Organization"
+                disabled>
+            </div>
+
+            <div class="profile-field full">
+              <label for="editBio">BIO</label>
+
+              <textarea
+                id="editBio"
+                rows="4"
+                placeholder="Tell us a bit about yourself..."></textarea>
+
+              <p class="profile-field-hint">
+                Add a short description about your interests, experience, role,
+                or involvement with KINESIS.
+              </p>
+            </div>
+
+            <div class="profile-actions">
+              <button
+                class="btn btn-primary"
+                id="saveProfileBtn"
+                type="button">
+                Save Changes
+              </button>
+
+              <a href="dashboard.html" class="btn btn-ghost">
+                Back to Dashboard
+              </a>
+            </div>
+
+            <div
+              class="form-status"
+              id="profileSaveStatus"
+              role="status"
+              aria-live="polite">
+            </div>
+
+          </div>
+
+          <div class="profile-tools">
+
+            <a href="dashboard.html" class="profile-tool">
+              <span>MEMBER HOME</span>
+              <strong>Dashboard</strong>
+              <small>Return to your KINESIS member overview.</small>
+            </a>
+
+            <a href="resources.html" class="profile-tool">
+              <span>LEARNING</span>
+              <strong>Resources</strong>
+              <small>Access available member learning materials.</small>
+            </a>
+
+            <a href="contact.html" class="profile-tool">
+              <span>SUPPORT</span>
+              <strong>Contact KINESIS</strong>
+              <small>Ask about your account or organization activities.</small>
+            </a>
+
+          </div>
+
+          <div class="profile-security">
+            <h3>Account Security</h3>
+
+            <p>
+              Your authentication is managed through Firebase. Do not share your
+              password or account access with other people. For account-related
+              concerns, contact KINESIS directly.
+            </p>
+          </div>
+
+        </section>
+
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore-compat.js"></script>
+
+<script src="js/firebase-config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/chat.js"></script>
+<script src="js/ui-effects.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Log In — KINESIS Organization</title>
+<meta name="description" content="Log in to your KINESIS Organization account to access your dashboard, resources, and member features.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+
+<style>
+  /* ========================================
+     KINESIS LOGIN PAGE — PC FIRST
+  ======================================== */
+
+  .login-page{
+    min-height:calc(100vh - 78px);
+    padding:126px 20px 72px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .login-page::before,
+  .login-page::after{
+    content:"";
+    position:absolute;
+    border-radius:50%;
+    pointer-events:none;
+  }
+
+  .login-page::before{
+    width:520px;
+    height:520px;
+    right:-160px;
+    top:70px;
+    background:radial-gradient(circle,rgba(47,168,255,.17),transparent 68%);
+  }
+
+  .login-page::after{
+    width:470px;
+    height:470px;
+    left:-180px;
+    bottom:-170px;
+    background:radial-gradient(circle,rgba(155,63,224,.15),transparent 68%);
+  }
+
+  .login-container{
+    position:relative;
+    z-index:2;
+    width:min(1080px,100%);
+    display:grid;
+    grid-template-columns:1.05fr .95fr;
+    overflow:hidden;
+    border:1px solid var(--line);
+    border-radius:28px;
+    background:rgba(13,17,31,.94);
+    box-shadow:0 28px 70px rgba(0,0,0,.28);
+  }
+
+  /* ---------- Brand side ---------- */
+
+  .login-brand-panel{
+    position:relative;
+    min-height:640px;
+    padding:58px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    overflow:hidden;
+    background:
+      radial-gradient(circle at 22% 18%,rgba(47,168,255,.19),transparent 34%),
+      radial-gradient(circle at 85% 84%,rgba(155,63,224,.20),transparent 34%),
+      linear-gradient(145deg,#11192f,#0b1020);
+    border-right:1px solid var(--line);
+  }
+
+  .login-brand-panel::after{
+    content:"";
+    position:absolute;
+    width:360px;
+    height:360px;
+    right:-120px;
+    top:110px;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,.07);
+    box-shadow:
+      0 0 0 38px rgba(255,255,255,.018),
+      0 0 0 80px rgba(255,255,255,.012);
+  }
+
+  .login-brand-top,
+  .login-brand-content,
+  .login-brand-bottom{
+    position:relative;
+    z-index:2;
+  }
+
+  .login-brand-top{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-family:'Rajdhani',sans-serif;
+    font-size:23px;
+    font-weight:700;
+    letter-spacing:.08em;
+  }
+
+  .login-brand-top img{
+    width:36px;
+    height:36px;
+    object-fit:contain;
+  }
+
+  .login-brand-content{
+    max-width:480px;
+  }
+
+  .login-brand-content .eyebrow{
+    margin-bottom:16px;
+  }
+
+  .login-brand-content h2{
+    font-size:clamp(40px,5vw,62px);
+    line-height:.98;
+    margin-bottom:22px;
+  }
+
+  .login-brand-content p{
+    color:var(--muted);
+    font-size:15.5px;
+    line-height:1.72;
+    max-width:440px;
+  }
+
+  .login-benefits{
+    display:grid;
+    gap:12px;
+    margin-top:30px;
+  }
+
+  .login-benefit{
+    display:flex;
+    align-items:center;
+    gap:11px;
+    color:var(--silver);
+    font-size:13.5px;
+  }
+
+  .login-benefit-icon{
+    width:28px;
+    height:28px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex:0 0 auto;
+    border-radius:50%;
+    background:rgba(47,168,255,.12);
+    border:1px solid rgba(47,168,255,.24);
+    color:var(--blue);
+    font-size:13px;
+    font-weight:700;
+  }
+
+  .login-brand-bottom{
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.6;
+  }
+
+  /* ---------- Form side ---------- */
+
+  .login-form-panel{
+    padding:58px 54px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    background:rgba(12,16,29,.98);
+  }
+
+  .login-form-head{
+    margin-bottom:30px;
+  }
+
+  .login-form-head h1{
+    font-size:clamp(38px,4vw,50px);
+    line-height:1;
+    margin-bottom:12px;
+  }
+
+  .login-form-head p{
+    color:var(--muted);
+    font-size:14.5px;
+    line-height:1.65;
+  }
+
+  #loginForm{
+    display:grid;
+    gap:18px;
+  }
+
+  .login-field{
+    display:grid;
+    gap:8px;
+  }
+
+  .login-field label{
+    color:var(--silver);
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.04em;
+  }
+
+  .login-field-wrap{
+    position:relative;
+  }
+
+  .login-field input{
+    width:100%;
+    height:50px;
+    padding:0 15px;
+    color:var(--white);
+    background:#0a0f1d;
+    border:1px solid #2d3550;
+    border-radius:12px;
+    outline:none;
+    font:inherit;
+    transition:border-color .18s ease,box-shadow .18s ease;
+  }
+
+  .login-field input:focus{
+    border-color:var(--blue);
+    box-shadow:0 0 0 3px rgba(47,168,255,.10);
+  }
+
+  .login-field input::placeholder{
+    color:#65708f;
+  }
+
+  .login-password-input{
+    padding-right:92px !important;
+  }
+
+  .password-toggle{
+    position:absolute;
+    right:10px;
+    top:50%;
+    transform:translateY(-50%);
+    min-width:66px;
+    height:34px;
+    padding:0 10px;
+    border:1px solid #35405f;
+    border-radius:9px;
+    background:#11182b;
+    color:var(--silver);
+    font:inherit;
+    font-size:11.5px;
+    font-weight:700;
+    cursor:pointer;
+  }
+
+  .password-toggle:hover{
+    border-color:var(--blue);
+    color:#fff;
+  }
+
+  .login-options{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+    margin-top:-2px;
+  }
+
+  .login-remember{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:var(--muted);
+    font-size:12.5px;
+  }
+
+  .login-remember input{
+    width:16px;
+    height:16px;
+    accent-color:var(--blue);
+  }
+
+  .login-help-link{
+    color:var(--blue);
+    font-size:12.5px;
+    font-weight:600;
+  }
+
+  .login-help-link:hover{
+    text-decoration:underline;
+  }
+
+  .login-submit{
+    width:100%;
+    margin-top:2px;
+  }
+
+  .form-status{
+    min-height:22px;
+    font-size:13px;
+    line-height:1.5;
+  }
+
+  .form-status.err{
+    color:#ff8e9c;
+  }
+
+  .form-status.ok{
+    color:#7fe2a0;
+  }
+
+  .form-status.pending{
+    color:var(--blue);
+  }
+
+  .login-divider{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin:10px 0 0;
+    color:#68728f;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.09em;
+  }
+
+  .login-divider::before,
+  .login-divider::after{
+    content:"";
+    height:1px;
+    flex:1;
+    background:var(--line);
+  }
+
+  .login-switch{
+    margin-top:22px;
+    padding-top:22px;
+    border-top:1px solid var(--line);
+    text-align:center;
+    color:var(--muted);
+    font-size:13.5px;
+  }
+
+  .login-switch a{
+    color:var(--blue);
+    font-weight:700;
+  }
+
+  .login-switch a:hover{
+    text-decoration:underline;
+  }
+
+  .login-footer-links{
+    display:flex;
+    justify-content:center;
+    gap:18px;
+    flex-wrap:wrap;
+    margin-top:20px;
+    font-size:11.5px;
+  }
+
+  .login-footer-links a{
+    color:#7f89a6;
+  }
+
+  .login-footer-links a:hover{
+    color:var(--silver);
+  }
+
+  @media (max-width:940px){
+    .login-container{
+      grid-template-columns:1fr;
+      max-width:650px;
+    }
+
+    .login-brand-panel{
+      min-height:auto;
+      padding:40px;
+      border-right:0;
+      border-bottom:1px solid var(--line);
+    }
+
+    .login-brand-content{
+      margin:58px 0;
+    }
+
+    .login-form-panel{
+      padding:44px 40px 48px;
+    }
+  }
+
+  @media (max-width:600px){
+    .login-page{
+      padding:104px 14px 40px;
+      align-items:flex-start;
+    }
+
+    .login-container{
+      border-radius:20px;
+    }
+
+    .login-brand-panel{
+      padding:30px 24px;
+    }
+
+    .login-brand-content{
+      margin:38px 0;
+    }
+
+    .login-brand-content h2{
+      font-size:40px;
+    }
+
+    .login-form-panel{
+      padding:36px 24px 40px;
+    }
+  }
+</style>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S6P4B00FM9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-S6P4B00FM9');
+</script>
+</head>
+
+<body>
+
+<header id="siteHeader">
+  <nav class="wrap">
+
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="KINESIS Organization logo" class="brand-logo">
+      KINESIS
+    </a>
+
+    <div class="navlinks">
+      <a href="index.html">Home</a>
+
+      <div class="nav-dropdown">
+        <a href="about.html" class="dropdown-toggle">
+          About Us <span class="dropdown-arrow">▾</span>
+        </a>
+
+        <div class="dropdown-menu">
+          <a href="about.html">About KINESIS</a>
+          <a href="mission-vision.html">Mission &amp; Vision</a>
+          <a href="advocacies.html">Our Advocacies</a>
+          <a href="team.html">Our Team</a>
+        </div>
+      </div>
+
+      <a href="programs.html">Programs</a>
+      <a href="products.html">Products</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="events.html">Events</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <div class="nav-right">
+      <div id="navAuthLoggedOut" style="display:flex;gap:10px;">
+        <a href="login.html" class="navghost active">Log In</a>
+        <a href="signup.html" class="navcta">Sign Up</a>
+      </div>
+
+      <div id="navAuthLoggedIn" style="display:none;align-items:center;gap:14px;">
+        <a href="dashboard.html" class="navghost">Dashboard</a>
+        <a href="resources.html" class="navghost">Resources</a>
+
+        <a href="profile.html" class="nav-profile">
+          <span class="avatar" id="navAvatarInitial">K</span>
+          <span id="navUserName">Member</span>
+        </a>
+
+        <button class="navghost logoutBtn" type="button">Log Out</button>
+      </div>
+    </div>
+
+    <button
+      class="burger"
+      id="burgerBtn"
+      type="button"
+      aria-label="Open menu"
+    >
+      ☰
+    </button>
+
+  </nav>
+</header>
+
+<main>
+
+  <section class="login-page">
+
+    <div class="login-container">
+
+      <!-- BRAND / BENEFITS -->
+      <aside class="login-brand-panel">
+
+        <div class="login-brand-top">
+          <img src="assets/logo.png" alt="KINESIS Organization logo">
+          KINESIS ORGANIZATION
+        </div>
+
+        <div class="login-brand-content">
+          <span class="eyebrow">MEMBER ACCESS</span>
+
+          <h2>Welcome back to KINESIS.</h2>
+
+          <p>
+            Sign in to continue to your member account and access the
+            organization’s member-focused features.
+          </p>
+
+          <div class="login-benefits">
+            <div class="login-benefit">
+              <span class="login-benefit-icon">✓</span>
+              Access your member dashboard
+            </div>
+
+            <div class="login-benefit">
+              <span class="login-benefit-icon">✓</span>
+              View member resources
+            </div>
+
+            <div class="login-benefit">
+              <span class="login-benefit-icon">✓</span>
+              Manage your profile
+            </div>
+          </div>
+        </div>
+
+        <div class="login-brand-bottom">
+          City College of Angeles · KINESIS Organization
+        </div>
+
+      </aside>
+
+      <!-- LOGIN FORM -->
+      <section class="login-form-panel">
+
+        <div class="login-form-head">
+          <span class="tag"></span>
+          <h1>Welcome back</h1>
+          <p>
+            Enter the email and password connected to your KINESIS account.
+          </p>
+        </div>
+
+        <form id="loginForm">
+
+          <div class="login-field">
+            <label for="loginEmail">EMAIL ADDRESS</label>
+
+            <div class="login-field-wrap">
+              <input
+                id="loginEmail"
+                type="email"
+                placeholder="you@example.com"
+                autocomplete="email"
+                required>
+            </div>
+          </div>
+
+          <div class="login-field">
+            <label for="loginPassword">PASSWORD</label>
+
+            <div class="login-field-wrap">
+              <input
+                id="loginPassword"
+                class="login-password-input"
+                type="password"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                required>
+
+              <button
+                class="password-toggle"
+                id="passwordToggle"
+                type="button"
+                aria-label="Show password">
+                Show
+              </button>
+            </div>
+          </div>
+
+          <div class="login-options">
+            <label class="login-remember">
+              <input type="checkbox" id="rememberLogin">
+              Keep me signed in on this device
+            </label>
+
+            <a
+              href="mailto:kinesisorganization@gmail.com?subject=KINESIS%20Account%20Help"
+              class="login-help-link">
+              Need account help?
+            </a>
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-primary btn-block login-submit">
+            Log In
+          </button>
+
+          <div
+            class="form-status"
+            id="authStatus"
+            role="status"
+            aria-live="polite">
+          </div>
+
+        </form>
+
+        <div class="login-divider">KINESIS MEMBER ACCOUNT</div>
+
+        <p class="login-switch">
+          Don't have an account?
+          <a href="signup.html">Create an account</a>
+        </p>
+
+        <div class="login-footer-links">
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Use</a>
+          <a href="contact.html">Contact</a>
+        </div>
+
+      </section>
+
+    </div>
+
+  </section>
+
+</main>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore-compat.js"></script>
+
+<script src="js/firebase-config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/nav.js"></script>
+
+<script>
+  /* ========================================
+     SHOW / HIDE PASSWORD
+  ======================================== */
+
+  const passwordInput = document.getElementById("loginPassword");
+  const passwordToggle = document.getElementById("passwordToggle");
+
+  if (passwordInput && passwordToggle) {
+    passwordToggle.addEventListener("click", function() {
+      const isHidden = passwordInput.type === "password";
+
+      passwordInput.type = isHidden ? "text" : "password";
+      passwordToggle.textContent = isHidden ? "Hide" : "Show";
+      passwordToggle.setAttribute(
+        "aria-label",
+        isHidden ? "Hide password" : "Show password"
+      );
+    });
+  }
+</script>
+
+<script src="js/ui-effects.js"></script>
+</body>
+</html>

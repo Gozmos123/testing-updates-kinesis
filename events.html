@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Events — KINESIS Organization</title>
+<meta name="description" content="Explore KINESIS Organization events, seminars, workshops, sports activities, and event-management experiences at City College of Angeles.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+
+<style>
+  /* ========================================
+     KINESIS EVENTS PAGE — PC FIRST
+  ======================================== */
+
+  .events-shell{
+    padding:72px 0 88px;
+  }
+
+  .events-intro{
+    max-width:720px;
+    margin-bottom:42px;
+  }
+
+  .events-intro .tag{
+    margin-bottom:12px;
+  }
+
+  .events-intro h2{
+    font-size:clamp(30px,4vw,44px);
+    line-height:1.08;
+  }
+
+  .events-intro p{
+    margin-top:16px;
+    color:var(--muted);
+    font-size:16px;
+    line-height:1.7;
+  }
+
+  /* ---------- Upcoming event block ---------- */
+
+  .upcoming-panel{
+    position:relative;
+    overflow:hidden;
+    display:grid;
+    grid-template-columns:1.05fr .95fr;
+    min-height:400px;
+    border:1px solid var(--line);
+    border-radius:24px;
+    background:
+      radial-gradient(circle at 88% 15%,rgba(155,63,224,.20),transparent 34%),
+      radial-gradient(circle at 10% 90%,rgba(47,168,255,.15),transparent 32%),
+      var(--panel);
+  }
+
+  .upcoming-visual{
+    position:relative;
+    min-height:400px;
+    background:
+      linear-gradient(to right,rgba(10,12,22,.05),rgba(10,12,22,.32)),
+      url('assets/pickleball-banner.jpg') center/cover no-repeat;
+  }
+
+  .upcoming-visual::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to top,rgba(10,12,22,.45),transparent 62%);
+  }
+
+  .upcoming-copy{
+    padding:52px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+
+  .status-badge{
+    display:inline-flex;
+    align-items:center;
+    width:max-content;
+    padding:6px 12px;
+    margin-bottom:16px;
+    border-radius:999px;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+  }
+
+  .status-badge.upcoming{
+    color:var(--blue);
+    border:1px solid rgba(47,168,255,.40);
+    background:rgba(47,168,255,.10);
+  }
+
+  .status-badge.completed{
+    color:var(--silver);
+    border:1px solid var(--line);
+    background:rgba(199,204,217,.08);
+  }
+
+  .upcoming-copy h3{
+    font-size:clamp(30px,3.4vw,44px);
+    line-height:1.08;
+    margin-bottom:16px;
+  }
+
+  .upcoming-copy p{
+    color:var(--muted);
+    font-size:15.5px;
+    line-height:1.7;
+  }
+
+  .event-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    margin-top:28px;
+  }
+
+  /* ---------- Section heading ---------- */
+
+  .events-section-head{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:24px;
+    margin-bottom:30px;
+  }
+
+  .events-section-head h2{
+    font-size:clamp(28px,3.6vw,40px);
+  }
+
+  .events-section-head p{
+    max-width:500px;
+    color:var(--muted);
+    font-size:14.5px;
+    line-height:1.65;
+    text-align:right;
+  }
+
+  /* ---------- Past event ---------- */
+
+  .event-feature{
+    display:grid;
+    grid-template-columns:420px 1fr;
+    overflow:hidden;
+    border:1px solid var(--line);
+    border-radius:22px;
+    background:var(--panel);
+    transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease;
+  }
+
+  .event-feature:hover{
+    transform:translateY(-4px);
+    border-color:rgba(47,168,255,.50);
+    box-shadow:0 22px 50px rgba(0,0,0,.24);
+  }
+
+  .event-feature-image{
+    min-height:330px;
+  }
+
+  .event-feature-image img{
+    width:100%;
+    height:100%;
+    min-height:330px;
+    display:block;
+    object-fit:cover;
+  }
+
+  .event-feature-body{
+    padding:38px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+
+  .event-feature h3{
+    font-size:clamp(26px,3vw,34px);
+    line-height:1.15;
+    margin-bottom:16px;
+  }
+
+  .event-meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px 20px;
+    margin-bottom:18px;
+    color:var(--silver);
+    font-size:13.5px;
+  }
+
+  .event-meta span{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+
+  .event-feature p{
+    color:var(--muted);
+    font-size:15px;
+    line-height:1.7;
+    max-width:720px;
+  }
+
+  /* ---------- Event areas ---------- */
+
+  .event-area-grid{
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:20px;
+  }
+
+  .event-area-card{
+    min-height:220px;
+    padding:28px;
+    border:1px solid var(--line);
+    border-radius:20px;
+    background:var(--panel);
+    transition:transform .2s ease,border-color .2s ease;
+  }
+
+  .event-area-card:hover{
+    transform:translateY(-4px);
+    border-color:var(--blue);
+  }
+
+  .event-area-number{
+    display:block;
+    color:var(--blue);
+    font-family:'Rajdhani',sans-serif;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.16em;
+    margin-bottom:18px;
+  }
+
+  .event-area-card h3{
+    font-size:22px;
+    margin-bottom:10px;
+  }
+
+  .event-area-card p{
+    color:var(--muted);
+    font-size:14.5px;
+    line-height:1.65;
+  }
+
+  /* ---------- Contact CTA ---------- */
+
+  .event-contact{
+    padding:54px;
+    border:1px solid var(--line);
+    border-radius:24px;
+    background:
+      linear-gradient(125deg,rgba(47,168,255,.10),rgba(155,63,224,.12)),
+      var(--panel);
+    text-align:center;
+  }
+
+  .event-contact h2{
+    font-size:clamp(28px,4vw,42px);
+    margin-bottom:14px;
+  }
+
+  .event-contact p{
+    max-width:650px;
+    margin:0 auto;
+    color:var(--muted);
+    font-size:15.5px;
+    line-height:1.7;
+  }
+
+  .event-contact .btn{
+    margin-top:28px;
+  }
+
+  @media (max-width:1000px){
+    .upcoming-panel{
+      grid-template-columns:1fr;
+    }
+
+    .upcoming-visual{
+      min-height:320px;
+    }
+
+    .event-feature{
+      grid-template-columns:330px 1fr;
+    }
+
+    .event-area-grid{
+      grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+  }
+
+  @media (max-width:760px){
+    .events-shell{
+      padding:58px 0 70px;
+    }
+
+    .events-section-head{
+      align-items:flex-start;
+      flex-direction:column;
+    }
+
+    .events-section-head p{
+      text-align:left;
+    }
+
+    .upcoming-copy{
+      padding:34px 26px;
+    }
+
+    .event-feature{
+      grid-template-columns:1fr;
+    }
+
+    .event-feature-image,
+    .event-feature-image img{
+      min-height:250px;
+    }
+
+    .event-feature-body{
+      padding:30px 24px;
+    }
+
+    .event-contact{
+      padding:40px 26px;
+    }
+  }
+
+  @media (max-width:520px){
+    .event-area-grid{
+      grid-template-columns:1fr;
+    }
+  }
+</style>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S6P4B00FM9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-S6P4B00FM9');
+</script>
+</head>
+
+<body>
+
+<header id="siteHeader">
+  <nav class="wrap">
+
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="KINESIS Organization logo" class="brand-logo">
+      KINESIS
+    </a>
+
+    <div class="navlinks">
+      <a href="index.html">Home</a>
+
+      <div class="nav-dropdown">
+        <a href="about.html" class="dropdown-toggle">
+          About Us <span class="dropdown-arrow">▾</span>
+        </a>
+
+        <div class="dropdown-menu">
+          <a href="about.html">About KINESIS</a>
+          <a href="mission-vision.html">Mission &amp; Vision</a>
+          <a href="advocacies.html">Our Advocacies</a>
+          <a href="team.html">Our Team</a>
+        </div>
+      </div>
+
+      <a href="programs.html">Programs</a>
+      <a href="products.html">Products</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="events.html" class="active">Events</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <div class="nav-right">
+      <div id="navAuthLoggedOut" style="display:flex;gap:10px;">
+        <a href="login.html" class="navghost">Log In</a>
+        <a href="signup.html" class="navcta">Sign Up</a>
+      </div>
+
+      <div id="navAuthLoggedIn" style="display:none;align-items:center;gap:14px;">
+        <a href="dashboard.html" class="navghost">Dashboard</a>
+        <a href="resources.html" class="navghost">Resources</a>
+
+        <a href="profile.html" class="nav-profile">
+          <span class="avatar" id="navAvatarInitial">K</span>
+          <span id="navUserName">Member</span>
+        </a>
+
+        <button class="navghost logoutBtn" type="button">Log Out</button>
+      </div>
+    </div>
+
+    <button
+      class="burger"
+      id="burgerBtn"
+      type="button"
+      aria-label="Open menu"
+    >
+      ☰
+    </button>
+
+  </nav>
+</header>
+
+<main>
+
+  <!-- PAGE HEADER -->
+  <section class="page-header">
+    <div class="hero-ring" aria-hidden="true"></div>
+
+    <div class="wrap">
+      <span class="eyebrow">KINESIS IN ACTION</span>
+      <h1>Events</h1>
+
+      <p>
+        Discover seminars, workshops, sporting activities, and organized experiences
+        that bring movement, learning, teamwork, and event management together.
+      </p>
+    </div>
+  </section>
+
+  <!-- UPCOMING EVENTS -->
+  <section class="events-shell" style="padding-top:26px;">
+    <div class="wrap">
+
+      <div class="events-intro">
+        <span class="tag">UPCOMING EVENTS</span>
+        <h2>What’s next at KINESIS</h2>
+        <p>
+          New activities and event opportunities will be announced here as soon as
+          schedules and details are finalized.
+        </p>
+      </div>
+
+      <div class="perk-banner member-only" style="display:none;" data-display="flex">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2 4 7v6c0 5 3.5 8.5 8 9 4.5-.5 8-4 8-9V7l-8-5Z"/>
+        </svg>
+        <span>
+          KINESIS members can access event information and available resources through the
+          <a href="dashboard.html">Dashboard</a>.
+        </span>
+      </div>
+
+      <div class="upcoming-panel">
+
+        <div
+          class="upcoming-visual"
+          role="img"
+          aria-label="Sports activity image representing upcoming KINESIS events">
+        </div>
+
+        <div class="upcoming-copy">
+          <span class="status-badge upcoming">New Events Coming Soon</span>
+
+          <h3>More KINESIS experiences are on the way</h3>
+
+          <p>
+            We are preparing future seminars, sports-centered activities, workshops,
+            partnerships, and event-management experiences. Confirmed schedules,
+            venues, and participation details will appear here.
+          </p>
+
+          <div class="event-actions">
+            <a href="programs.html" class="btn btn-primary">Explore Programs</a>
+            <a href="contact.html" class="btn btn-ghost">Contact KINESIS</a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <div class="streaks" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
+
+  <!-- PAST EVENTS -->
+  <section class="events-shell">
+    <div class="wrap">
+
+      <div class="events-section-head">
+        <div>
+          <span class="tag">PAST EVENTS</span>
+          <h2>Previous KINESIS activities</h2>
+        </div>
+
+        <p>
+          A growing record of seminars, workshops, and experiences organized by KINESIS.
+        </p>
+      </div>
+
+      <article class="event-feature">
+
+        <div class="event-feature-image">
+          <img
+            src="assets/event-smash-paddle.jpg"
+            alt="Smash and Paddle: The New Era of Racket Sports Officiating event poster">
+        </div>
+
+        <div class="event-feature-body">
+
+          <span class="status-badge completed">Completed</span>
+
+          <h3>Smash and Paddle: The New Era of Racket Sports Officiating</h3>
+
+          <div class="event-meta">
+            <span>📅 April 29, 2026</span>
+            <span>🕖 7:00 AM – 5:00 PM</span>
+            <span>📍 CCA Covered Court</span>
+          </div>
+
+          <p>
+            A hands-on seminar-workshop covering the fundamentals of officiating
+            pickleball and paddle sports, designed for students, players, and community
+            members interested in learning rules, mechanics, and practical officiating.
+          </p>
+
+          <div class="event-actions">
+            <a href="gallery.html" class="btn btn-primary">View Gallery</a>
+            <a href="programs.html" class="btn btn-ghost">Explore Programs</a>
+          </div>
+
+        </div>
+
+      </article>
+
+    </div>
+  </section>
+
+  <!-- EVENT AREAS -->
+  <section class="events-shell">
+    <div class="wrap">
+
+      <div class="events-section-head">
+        <div>
+          <span class="tag">WHAT WE ORGANIZE</span>
+          <h2>KINESIS event areas</h2>
+        </div>
+
+        <p>
+          Our event work extends beyond one sport and brings together Physical Education,
+          movement, learning, wellness, and organized event operations.
+        </p>
+      </div>
+
+      <div class="event-area-grid">
+
+        <article class="event-area-card">
+          <span class="event-area-number">01 · SPORTS</span>
+          <h3>Sports Events</h3>
+          <p>
+            Organized activities and competitions that encourage participation,
+            movement, teamwork, and sportsmanship.
+          </p>
+        </article>
+
+        <article class="event-area-card">
+          <span class="event-area-number">02 · EDUCATION</span>
+          <h3>Seminars &amp; Workshops</h3>
+          <p>
+            Learning experiences focused on skills, officiating, movement,
+            sports knowledge, and professional development.
+          </p>
+        </article>
+
+        <article class="event-area-card">
+          <span class="event-area-number">03 · MICE</span>
+          <h3>Event Operations</h3>
+          <p>
+            Activities centered on planning, coordination, logistics,
+            venue preparation, communication, and event execution.
+          </p>
+        </article>
+
+        <article class="event-area-card">
+          <span class="event-area-number">04 · COMMUNITY</span>
+          <h3>Partnership Activities</h3>
+          <p>
+            Collaborative programs with participants, organizations, speakers,
+            partners, and communities that support meaningful experiences.
+          </p>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <div class="streaks" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
+
+  <!-- CONTACT CTA -->
+  <section class="events-shell">
+    <div class="wrap">
+
+      <div class="event-contact">
+        <span class="tag">CONNECT WITH US</span>
+
+        <h2>Interested in a KINESIS event?</h2>
+
+        <p>
+          Contact the organization for event inquiries, participation information,
+          partnerships, or possible collaborations.
+        </p>
+
+        <a href="contact.html" class="btn btn-primary">Contact KINESIS</a>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap" style="display:flex;flex-direction:column;gap:20px;width:100%;">
+
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+
+      <div class="foot-brand">
+        <img
+          src="assets/logo.png"
+          alt="KINESIS Organization logo"
+          style="width:22px;height:22px;object-fit:contain;"
+        >
+        KINESIS ORGANIZATION
+      </div>
+
+      <div style="display:flex;gap:12px;">
+        <a
+          href="https://www.facebook.com/profile.php?id=61588488886453"
+          target="_blank"
+          rel="noopener"
+          aria-label="KINESIS Organization on Facebook"
+          style="width:36px;height:36px;border-radius:50%;background:var(--panel);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;"
+        >
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="#C7CCD9">
+            <path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;border-top:1px solid var(--line);padding-top:20px;">
+
+      <p>© 2026 KINESIS Organization · City College of Angeles</p>
+
+      <div style="display:flex;gap:20px;font-size:13px;flex-wrap:wrap;">
+        <a href="events.html" style="color:var(--muted);">Events</a>
+        <a href="faq.html" style="color:var(--muted);">FAQ</a>
+        <a href="privacy.html" style="color:var(--muted);">Privacy Policy</a>
+        <a href="terms.html" style="color:var(--muted);">Terms of Use</a>
+      </div>
+
+    </div>
+
+  </div>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore-compat.js"></script>
+
+<script src="js/firebase-config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/chat.js"></script>
+<script src="js/ui-effects.js"></script>
+
+</body>
+</html>

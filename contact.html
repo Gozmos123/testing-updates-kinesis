@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Contact — KINESIS Organization</title>
+<meta name="description" content="Contact KINESIS Organization for program inquiries, events, partnerships, products, membership, and general questions.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+
+<style>
+  /* ========================================
+     KINESIS CONTACT PAGE — PC FIRST
+  ======================================== */
+
+  .contact-shell{
+    padding:72px 0 88px;
+  }
+
+  .contact-intro{
+    max-width:760px;
+    margin-bottom:42px;
+  }
+
+  .contact-intro h2{
+    font-size:clamp(30px,4vw,44px);
+    line-height:1.08;
+  }
+
+  .contact-intro p{
+    margin-top:16px;
+    color:var(--muted);
+    font-size:16px;
+    line-height:1.72;
+  }
+
+  /* ---------- Main contact layout ---------- */
+
+  .contact-layout{
+    display:grid;
+    grid-template-columns:.82fr 1.18fr;
+    gap:26px;
+    align-items:start;
+  }
+
+  .contact-panel,
+  .contact-form-card{
+    border:1px solid var(--line);
+    border-radius:24px;
+    background:var(--panel);
+  }
+
+  .contact-panel{
+    padding:34px;
+  }
+
+  .contact-panel-head{
+    margin-bottom:26px;
+  }
+
+  .contact-panel-head h2{
+    font-size:30px;
+    margin-bottom:10px;
+  }
+
+  .contact-panel-head p{
+    color:var(--muted);
+    font-size:14.5px;
+    line-height:1.65;
+  }
+
+  .contact-methods{
+    display:grid;
+    gap:14px;
+  }
+
+  .contact-method{
+    display:grid;
+    grid-template-columns:48px 1fr;
+    align-items:center;
+    gap:15px;
+    padding:16px;
+    border:1px solid var(--line);
+    border-radius:16px;
+    background:rgba(255,255,255,.02);
+    transition:border-color .2s ease,transform .2s ease;
+  }
+
+  .contact-method:hover{
+    transform:translateY(-2px);
+    border-color:rgba(47,168,255,.46);
+  }
+
+  .contact-method-icon{
+    width:48px;
+    height:48px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:14px;
+    background:linear-gradient(135deg,rgba(47,168,255,.18),rgba(155,63,224,.18));
+  }
+
+  .contact-method-icon svg{
+    width:23px;
+    height:23px;
+    stroke:var(--blue);
+  }
+
+  .contact-method-label{
+    display:block;
+    margin-bottom:4px;
+    color:var(--muted);
+    font-size:10.5px;
+    font-weight:700;
+    letter-spacing:.11em;
+    text-transform:uppercase;
+  }
+
+  .contact-method-value{
+    color:var(--white);
+    font-size:14.5px;
+    line-height:1.5;
+    word-break:break-word;
+  }
+
+  .contact-method-value a{
+    color:var(--white);
+  }
+
+  .contact-method-value a:hover{
+    color:var(--blue);
+  }
+
+  .contact-social-actions{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-top:22px;
+  }
+
+  /* ---------- Form ---------- */
+
+  .contact-form-card{
+    padding:38px;
+  }
+
+  .contact-form-head{
+    margin-bottom:26px;
+  }
+
+  .contact-form-head h2{
+    font-size:32px;
+    margin-bottom:9px;
+  }
+
+  .contact-form-head p{
+    color:var(--muted);
+    font-size:14.5px;
+    line-height:1.65;
+  }
+
+  #contactForm{
+    display:grid;
+    gap:18px;
+  }
+
+  .contact-form-row{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:16px;
+  }
+
+  .contact-field{
+    display:grid;
+    gap:8px;
+  }
+
+  .contact-field label{
+    color:var(--silver);
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.04em;
+  }
+
+  .contact-field input,
+  .contact-field select,
+  .contact-field textarea{
+    width:100%;
+    padding:14px 15px;
+    color:var(--white);
+    font:inherit;
+    background:#0d1222;
+    border:1px solid #2d3550;
+    border-radius:12px;
+    outline:none;
+    transition:border-color .18s ease,box-shadow .18s ease;
+  }
+
+  .contact-field input:focus,
+  .contact-field select:focus,
+  .contact-field textarea:focus{
+    border-color:var(--blue);
+    box-shadow:0 0 0 3px rgba(47,168,255,.10);
+  }
+
+  .contact-field textarea{
+    min-height:160px;
+    resize:vertical;
+  }
+
+  .contact-field select{
+    appearance:none;
+    cursor:pointer;
+  }
+
+  .contact-field select option{
+    background:#0d1222;
+    color:#fff;
+  }
+
+  .contact-form-bottom{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+    margin-top:2px;
+  }
+
+  .contact-form-note{
+    max-width:420px;
+    color:var(--muted);
+    font-size:11.5px;
+    line-height:1.5;
+  }
+
+  .form-status{
+    min-height:20px;
+    padding:0;
+    font-size:13px;
+    line-height:1.5;
+  }
+
+  .form-status.ok{ color:#79df9c; }
+  .form-status.err{ color:#ff8e9c; }
+  .form-status.pending{ color:var(--blue); }
+
+  /* ---------- Inquiry types ---------- */
+
+  .contact-types{
+    display:grid;
+    grid-template-columns:repeat(5,minmax(0,1fr));
+    gap:16px;
+  }
+
+  .contact-type-card{
+    min-height:170px;
+    padding:22px;
+    border:1px solid var(--line);
+    border-radius:18px;
+    background:var(--panel);
+  }
+
+  .contact-type-number{
+    display:block;
+    margin-bottom:13px;
+    color:var(--purple);
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.12em;
+  }
+
+  .contact-type-card h3{
+    font-size:20px;
+    margin-bottom:8px;
+  }
+
+  .contact-type-card p{
+    color:var(--muted);
+    font-size:13.5px;
+    line-height:1.6;
+  }
+
+  /* ---------- Location / direct CTA ---------- */
+
+  .contact-location-card{
+    padding:48px;
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:32px;
+    align-items:center;
+    border:1px solid var(--line);
+    border-radius:24px;
+    background:
+      radial-gradient(circle at 88% 18%,rgba(155,63,224,.19),transparent 34%),
+      radial-gradient(circle at 10% 82%,rgba(47,168,255,.14),transparent 32%),
+      var(--panel);
+  }
+
+  .contact-location-card h2{
+    font-size:clamp(28px,4vw,40px);
+    margin-bottom:12px;
+  }
+
+  .contact-location-card p{
+    max-width:650px;
+    color:var(--muted);
+    font-size:15px;
+    line-height:1.72;
+  }
+
+  .contact-location-actions{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+  }
+
+
+  /* ---------- Interactive Google Map ---------- */
+
+  .contact-map-wrap{
+    margin-top:28px;
+    overflow:hidden;
+    border:1px solid var(--line);
+    border-radius:20px;
+    background:var(--panel);
+  }
+
+  .contact-map-wrap iframe{
+    display:block;
+    width:100%;
+    height:420px;
+    border:0;
+  }
+
+  .contact-map-footer{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+    padding:18px 20px;
+    border-top:1px solid var(--line);
+  }
+
+  .contact-map-footer p{
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.55;
+  }
+
+  @media (max-width:720px){
+    .contact-map-wrap iframe{
+      height:330px;
+    }
+  }
+
+  @media (max-width:1050px){
+    .contact-types{
+      grid-template-columns:repeat(3,minmax(0,1fr));
+    }
+  }
+
+  @media (max-width:900px){
+    .contact-layout{
+      grid-template-columns:1fr;
+    }
+
+    .contact-location-card{
+      grid-template-columns:1fr;
+    }
+
+    .contact-location-actions{
+      justify-content:flex-start;
+    }
+  }
+
+  @media (max-width:720px){
+    .contact-shell{
+      padding:58px 0 70px;
+    }
+
+    .contact-form-row{
+      grid-template-columns:1fr;
+    }
+
+    .contact-types{
+      grid-template-columns:1fr;
+    }
+
+    .contact-panel,
+    .contact-form-card{
+      padding:28px 22px;
+    }
+
+    .contact-location-card{
+      padding:38px 24px;
+    }
+  }
+</style>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S6P4B00FM9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-S6P4B00FM9');
+</script>
+</head>
+
+<body>
+
+<header id="siteHeader">
+  <nav class="wrap">
+
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="KINESIS Organization logo" class="brand-logo">
+      KINESIS
+    </a>
+
+    <div class="navlinks">
+      <a href="index.html">Home</a>
+
+      <div class="nav-dropdown">
+        <a href="about.html" class="dropdown-toggle">
+          About Us <span class="dropdown-arrow">▾</span>
+        </a>
+
+        <div class="dropdown-menu">
+          <a href="about.html">About KINESIS</a>
+          <a href="mission-vision.html">Mission &amp; Vision</a>
+          <a href="advocacies.html">Our Advocacies</a>
+          <a href="team.html">Our Team</a>
+        </div>
+      </div>
+
+      <a href="programs.html">Programs</a>
+      <a href="products.html">Products</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="events.html">Events</a>
+      <a href="contact.html" class="active">Contact</a>
+    </div>
+
+    <div class="nav-right">
+      <div id="navAuthLoggedOut" style="display:flex;gap:10px;">
+        <a href="login.html" class="navghost">Log In</a>
+        <a href="signup.html" class="navcta">Sign Up</a>
+      </div>
+
+      <div id="navAuthLoggedIn" style="display:none;align-items:center;gap:14px;">
+        <a href="dashboard.html" class="navghost">Dashboard</a>
+        <a href="resources.html" class="navghost">Resources</a>
+
+        <a href="profile.html" class="nav-profile">
+          <span class="avatar" id="navAvatarInitial">K</span>
+          <span id="navUserName">Member</span>
+        </a>
+
+        <button class="navghost logoutBtn" type="button">Log Out</button>
+      </div>
+    </div>
+
+    <button
+      class="burger"
+      id="burgerBtn"
+      type="button"
+      aria-label="Open menu"
+    >
+      ☰
+    </button>
+
+  </nav>
+</header>
+
+<main>
+
+  <!-- PAGE HEADER -->
+  <section class="page-header">
+    <div class="hero-ring" aria-hidden="true"></div>
+
+    <div class="wrap">
+      <span class="eyebrow">GET IN TOUCH</span>
+      <h1>Contact KINESIS</h1>
+
+      <p>
+        Questions about our programs, events, partnerships, products,
+        membership, or organization? Send us a message.
+      </p>
+    </div>
+  </section>
+
+  <!-- CONTACT + FORM -->
+  <section class="contact-shell" style="padding-top:26px;">
+    <div class="wrap">
+
+      <div class="contact-intro">
+        <span class="tag">CONNECT WITH US</span>
+        <h2>Let’s start a conversation</h2>
+
+        <p>
+          Choose the contact method that works best for you or use the inquiry
+          form to send KINESIS a detailed message.
+        </p>
+      </div>
+
+      <div class="contact-layout">
+
+        <!-- CONTACT DETAILS -->
+        <aside class="contact-panel">
+
+          <div class="contact-panel-head">
+            <h2>Contact Information</h2>
+            <p>
+              Reach KINESIS directly through phone, email, Messenger,
+              or visit us at City College of Angeles.
+            </p>
+          </div>
+
+          <div class="contact-methods">
+
+            <div class="contact-method">
+              <div class="contact-method-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+              </div>
+              <div>
+                <span class="contact-method-label">Phone</span>
+                <div class="contact-method-value">
+                  <a href="tel:+639921604137">0992 160 4137</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-method">
+              <div class="contact-method-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="5" width="18" height="14" rx="2"/>
+                  <path d="m3 7 9 6 9-6"/>
+                </svg>
+              </div>
+              <div>
+                <span class="contact-method-label">Email</span>
+                <div class="contact-method-value">
+                  <a href="https://mail.google.com/mail/?view=cm&fs=1&to=kinesisorganization@gmail.com" target="_blank" rel="noopener">kinesisorganization@gmail.com</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-method">
+              <div class="contact-method-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+                </svg>
+              </div>
+              <div>
+                <span class="contact-method-label">Messenger</span>
+                <div class="contact-method-value">
+                  <a href="https://m.me/61588488886453" target="_blank" rel="noopener">KINESIS Organization</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-method">
+              <div class="contact-method-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+              </div>
+              <div>
+                <span class="contact-method-label">Location</span>
+                <div class="contact-method-value">
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=City+College+of+Angeles%2C+Angeles+City%2C+Philippines"
+                    target="_blank"
+                    rel="noopener">
+                    City College of Angeles, Angeles City, Philippines, 2009
+                  </a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="contact-social-actions">
+            <a
+              href="https://m.me/61588488886453"
+              target="_blank"
+              rel="noopener"
+              class="btn btn-primary">
+              Open Messenger
+            </a>
+
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=kinesisorganization@gmail.com" target="_blank" rel="noopener" class="btn btn-ghost">
+              Send Email
+            </a>
+          </div>
+
+        </aside>
+
+        <!-- CONTACT FORM -->
+        <div class="contact-form-card">
+
+          <div class="contact-form-head">
+            <span class="tag">SEND A MESSAGE</span>
+            <h2>How can we help?</h2>
+            <p>
+              Complete the form below and include enough information for
+              KINESIS to understand your inquiry.
+            </p>
+          </div>
+
+          <form id="contactForm">
+
+            <div class="contact-form-row">
+              <div class="contact-field">
+                <label for="name">NAME</label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  placeholder="Your full name"
+                  autocomplete="name"
+                  required>
+              </div>
+
+              <div class="contact-field">
+                <label for="email">EMAIL</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="you@example.com"
+                  autocomplete="email"
+                  required>
+              </div>
+            </div>
+
+            <div class="contact-form-row">
+              <div class="contact-field">
+                <label for="inquiryType">INQUIRY TYPE</label>
+                <select id="inquiryType" name="inquiryType">
+                  <option value="General Inquiry">General Inquiry</option>
+                  <option value="Programs">Programs</option>
+                  <option value="Events">Events</option>
+                  <option value="Partnership / Collaboration">Partnership / Collaboration</option>
+                  <option value="Products">Products</option>
+                  <option value="Membership">Membership</option>
+                </select>
+              </div>
+
+              <div class="contact-field">
+                <label for="subject">SUBJECT</label>
+                <input
+                  id="subject"
+                  name="subject"
+                  type="text"
+                  placeholder="Brief subject of your message">
+              </div>
+            </div>
+
+            <div class="contact-field">
+              <label for="message">MESSAGE</label>
+              <textarea
+                id="message"
+                name="message"
+                placeholder="Tell us about your inquiry..."
+                required></textarea>
+            </div>
+
+            <div class="contact-form-bottom">
+              <button type="submit" class="btn btn-primary">
+                Send Message
+              </button>
+
+              <p class="contact-form-note">
+                You may also contact KINESIS directly by email or Facebook if the website form is unavailable.
+              </p>
+            </div>
+
+            <div
+              class="form-status"
+              id="formStatus"
+              role="status"
+              aria-live="polite">
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- INQUIRY TYPES -->
+  <section class="contact-shell">
+    <div class="wrap">
+
+      <div class="contact-intro">
+        <span class="tag">WHAT YOU CAN ASK ABOUT</span>
+        <h2>Common KINESIS inquiries</h2>
+
+        <p>
+          Contact us regarding current activities, future opportunities,
+          collaborations, products, or organizational information.
+        </p>
+      </div>
+
+      <div class="contact-types">
+
+        <article class="contact-type-card">
+          <span class="contact-type-number">01 · PROGRAMS</span>
+          <h3>Programs</h3>
+          <p>Seminars, workshops, sports learning, training, and participation information.</p>
+        </article>
+
+        <article class="contact-type-card">
+          <span class="contact-type-number">02 · EVENTS</span>
+          <h3>Events</h3>
+          <p>Schedules, event details, participation, registration, and event-related questions.</p>
+        </article>
+
+        <article class="contact-type-card">
+          <span class="contact-type-number">03 · PARTNERSHIPS</span>
+          <h3>Collaboration</h3>
+          <p>Partnerships, sponsorship discussions, speakers, organizations, and community opportunities.</p>
+        </article>
+
+        <article class="contact-type-card">
+          <span class="contact-type-number">04 · PRODUCTS</span>
+          <h3>Products</h3>
+          <p>Questions regarding recovery, wellness, and performance products featured on the website.</p>
+        </article>
+
+        <article class="contact-type-card">
+          <span class="contact-type-number">05 · GENERAL</span>
+          <h3>Organization</h3>
+          <p>Membership, KINESIS information, advocacies, team, and other general questions.</p>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <div class="streaks" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
+
+  <!-- LOCATION / DIRECT CONTACT -->
+  <section class="contact-shell">
+    <div class="wrap">
+
+      <div class="contact-location-card">
+
+        <div>
+          <span class="tag">CITY COLLEGE OF ANGELES</span>
+          <h2>Find KINESIS at CCA</h2>
+
+          <p>
+            KINESIS Organization is based at City College of Angeles in
+            Angeles City, Philippines. Use the interactive Google Map below
+            to explore the area, zoom in or out, and open Google Maps for directions.
+          </p>
+        </div>
+
+        <div class="contact-location-actions">
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=City+College+of+Angeles%2C+Angeles+City%2C+Philippines"
+            target="_blank"
+            rel="noopener"
+            class="btn btn-primary">
+            Open in Google Maps
+          </a>
+
+          <a
+            href="https://m.me/61588488886453"
+            target="_blank"
+            rel="noopener"
+            class="btn btn-ghost">
+            Messenger
+          </a>
+        </div>
+
+      </div>
+
+      <div class="contact-map-wrap">
+        <iframe
+          src="https://www.google.com/maps?q=City+College+of+Angeles%2C+Angeles+City%2C+Philippines&output=embed"
+          title="Google Map showing City College of Angeles"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen>
+        </iframe>
+
+        <div class="contact-map-footer">
+          <p>
+            Interactive map powered by Google Maps. Click and drag to move around,
+            or use the button to open full directions.
+          </p>
+
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=City+College+of+Angeles%2C+Angeles+City%2C+Philippines"
+            target="_blank"
+            rel="noopener"
+            class="btn btn-ghost">
+            View Full Map
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap" style="display:flex;flex-direction:column;gap:20px;width:100%;">
+
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+
+      <div class="foot-brand">
+        <img
+          src="assets/logo.png"
+          alt="KINESIS Organization logo"
+          style="width:22px;height:22px;object-fit:contain;">
+        KINESIS ORGANIZATION
+      </div>
+
+      <div style="display:flex;gap:12px;">
+        <a
+          href="https://www.facebook.com/profile.php?id=61588488886453"
+          target="_blank"
+          rel="noopener"
+          aria-label="KINESIS Organization on Facebook"
+          style="width:36px;height:36px;border-radius:50%;background:var(--panel);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="#C7CCD9">
+            <path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;border-top:1px solid var(--line);padding-top:20px;">
+
+      <p>© 2026 KINESIS Organization · City College of Angeles</p>
+
+      <div style="display:flex;gap:20px;font-size:13px;flex-wrap:wrap;">
+        <a href="events.html" style="color:var(--muted);">Events</a>
+        <a href="faq.html" style="color:var(--muted);">FAQ</a>
+        <a href="privacy.html" style="color:var(--muted);">Privacy Policy</a>
+        <a href="terms.html" style="color:var(--muted);">Terms of Use</a>
+      </div>
+
+    </div>
+
+  </div>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore-compat.js"></script>
+
+<script src="js/firebase-config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/chat.js"></script>
+<script src="js/ui-effects.js"></script>
+
+<script>
+  // ============================================================
+  // FORM ENDPOINT
+  // Keep your existing Formspree setup here.
+  // Replace PASTE_YOUR_FORM_ID only after you create your endpoint.
+  // ============================================================
+
+  const FORMSPREE_ENDPOINT = "https://formspree.io/f/PASTE_YOUR_FORM_ID";
+
+  const form = document.getElementById("contactForm");
+  const status = document.getElementById("formStatus");
+
+  form.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    if (FORMSPREE_ENDPOINT.includes("PASTE_YOUR_FORM_ID")) {
+      status.textContent =
+        "The website contact form is not connected yet. Please use our email or Facebook page for now.";
+      status.className = "form-status err";
+      return;
+    }
+
+    const submitButton = form.querySelector('button[type="submit"]');
+
+    submitButton.disabled = true;
+    status.textContent = "Sending...";
+    status.className = "form-status pending";
+
+    const payload = {
+      name: document.getElementById("name").value,
+      email: document.getElementById("email").value,
+      inquiryType: document.getElementById("inquiryType").value,
+      subject: document.getElementById("subject").value,
+      message: document.getElementById("message").value
+    };
+
+    try {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (response.ok) {
+        status.textContent =
+          "Message sent successfully. KINESIS will get back to you as soon as possible.";
+        status.className = "form-status ok";
+        form.reset();
+      } else {
+        status.textContent =
+          "Something went wrong while sending your message. Please try again.";
+        status.className = "form-status err";
+      }
+
+    } catch (error) {
+      status.textContent =
+        "Network error. Please try again or contact KINESIS directly by email.";
+      status.className = "form-status err";
+    }
+
+    submitButton.disabled = false;
+  });
+</script>
+
+</body>
+</html>

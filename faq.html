@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FAQ — KINESIS Organization</title>
+<meta name="description" content="Frequently asked questions about KINESIS Organization, programs, events, membership, resources, products, and contact information.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+
+<style>
+  /* ========================================
+     KINESIS FAQ — PC FIRST
+  ======================================== */
+
+  .faq-shell{
+    padding:76px 0 88px;
+  }
+
+  .faq-intro{
+    display:grid;
+    grid-template-columns:1fr .78fr;
+    gap:42px;
+    align-items:start;
+    margin-bottom:42px;
+  }
+
+  .faq-intro h2{
+    font-size:clamp(34px,4.5vw,48px);
+    line-height:1.05;
+    margin-bottom:14px;
+  }
+
+  .faq-intro p{
+    color:var(--muted);
+    font-size:15px;
+    line-height:1.72;
+    max-width:720px;
+  }
+
+  .faq-help-card{
+    padding:26px;
+    border:1px solid rgba(47,168,255,.22);
+    border-radius:19px;
+    background:
+      linear-gradient(135deg,rgba(47,168,255,.08),rgba(155,63,224,.06));
+  }
+
+  .faq-help-card h3{
+    font-size:22px;
+    margin-bottom:9px;
+  }
+
+  .faq-help-card p{
+    font-size:13px;
+    margin-bottom:18px;
+  }
+
+  .faq-help-actions{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+
+  /* ---------- Search ---------- */
+
+  .faq-search-wrap{
+    position:relative;
+    margin-bottom:32px;
+  }
+
+  .faq-search{
+    width:100%;
+    height:56px;
+    padding:0 54px 0 18px;
+    color:#fff;
+    background:#0d1222;
+    border:1px solid var(--line);
+    border-radius:15px;
+    outline:none;
+    font:inherit;
+  }
+
+  .faq-search:focus{
+    border-color:var(--blue);
+    box-shadow:0 0 0 3px rgba(47,168,255,.10);
+  }
+
+  .faq-search-icon{
+    position:absolute;
+    right:18px;
+    top:50%;
+    transform:translateY(-50%);
+    color:var(--blue);
+    font-size:19px;
+    pointer-events:none;
+  }
+
+  /* ---------- Categories ---------- */
+
+  .faq-categories{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:30px;
+  }
+
+  .faq-category-btn{
+    padding:9px 13px;
+    border:1px solid var(--line);
+    border-radius:999px;
+    background:var(--panel);
+    color:var(--muted);
+    font:inherit;
+    font-size:11.5px;
+    font-weight:700;
+    cursor:pointer;
+    transition:.18s ease;
+  }
+
+  .faq-category-btn:hover,
+  .faq-category-btn.active{
+    color:#fff;
+    border-color:var(--blue);
+    background:rgba(47,168,255,.10);
+  }
+
+  /* ---------- Accordion ---------- */
+
+  .faq-list{
+    display:grid;
+    gap:14px;
+  }
+
+  .faq-item{
+    border:1px solid var(--line);
+    border-radius:17px;
+    background:var(--panel);
+    overflow:hidden;
+  }
+
+  .faq-question{
+    width:100%;
+    padding:20px 22px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:18px;
+    text-align:left;
+    color:#fff;
+    background:transparent;
+    border:0;
+    font:inherit;
+    cursor:pointer;
+  }
+
+  .faq-question-left{
+    min-width:0;
+  }
+
+  .faq-label{
+    display:block;
+    margin-bottom:5px;
+    color:var(--blue);
+    font-size:9.5px;
+    font-weight:700;
+    letter-spacing:.10em;
+    text-transform:uppercase;
+  }
+
+  .faq-question strong{
+    display:block;
+    font-family:'Rajdhani',sans-serif;
+    font-size:19px;
+    line-height:1.25;
+  }
+
+  .faq-plus{
+    width:32px;
+    height:32px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex:0 0 auto;
+    border:1px solid var(--line);
+    border-radius:50%;
+    color:var(--blue);
+    font-size:20px;
+    transition:transform .18s ease;
+  }
+
+  .faq-item.open .faq-plus{
+    transform:rotate(45deg);
+  }
+
+  .faq-answer{
+    display:none;
+    padding:0 22px 22px;
+  }
+
+  .faq-item.open .faq-answer{
+    display:block;
+  }
+
+  .faq-answer p{
+    color:var(--muted);
+    font-size:13.5px;
+    line-height:1.72;
+  }
+
+  .faq-answer a{
+    color:var(--blue);
+    font-weight:600;
+  }
+
+  .faq-answer a:hover{
+    text-decoration:underline;
+  }
+
+  .faq-empty{
+    display:none;
+    padding:30px;
+    text-align:center;
+    border:1px solid var(--line);
+    border-radius:17px;
+    color:var(--muted);
+    background:var(--panel);
+  }
+
+  /* ---------- Bottom CTA ---------- */
+
+  .faq-cta{
+    margin-top:42px;
+    padding:38px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:26px;
+    border:1px solid var(--line);
+    border-radius:22px;
+    background:
+      radial-gradient(circle at 90% 20%,rgba(47,168,255,.12),transparent 35%),
+      linear-gradient(135deg,#11172a,#0d1220);
+  }
+
+  .faq-cta h2{
+    font-size:30px;
+    margin-bottom:8px;
+  }
+
+  .faq-cta p{
+    color:var(--muted);
+    font-size:13.5px;
+    line-height:1.65;
+    max-width:650px;
+  }
+
+  .faq-cta-actions{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    flex:0 0 auto;
+  }
+
+  @media (max-width:900px){
+    .faq-intro{
+      grid-template-columns:1fr;
+    }
+
+    .faq-cta{
+      flex-direction:column;
+      align-items:flex-start;
+    }
+
+    .faq-cta-actions{
+      flex:initial;
+    }
+  }
+
+  @media (max-width:600px){
+    .faq-shell{
+      padding:60px 0 72px;
+    }
+
+    .faq-question{
+      padding:18px;
+    }
+
+    .faq-answer{
+      padding:0 18px 18px;
+    }
+
+    .faq-cta{
+      padding:26px;
+    }
+  }
+</style>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S6P4B00FM9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-S6P4B00FM9');
+</script>
+</head>
+
+<body>
+
+<header id="siteHeader">
+  <nav class="wrap">
+
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="KINESIS Organization logo" class="brand-logo">
+      KINESIS
+    </a>
+
+    <div class="navlinks">
+      <a href="index.html">Home</a>
+
+      <div class="nav-dropdown">
+        <a href="about.html" class="dropdown-toggle">
+          About Us <span class="dropdown-arrow">▾</span>
+        </a>
+
+        <div class="dropdown-menu">
+          <a href="about.html">About KINESIS</a>
+          <a href="mission-vision.html">Mission &amp; Vision</a>
+          <a href="advocacies.html">Our Advocacies</a>
+          <a href="team.html">Our Team</a>
+        </div>
+      </div>
+
+      <a href="programs.html">Programs</a>
+      <a href="products.html">Products</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="events.html">Events</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <div class="nav-right">
+      <div id="navAuthLoggedOut" style="display:flex;gap:10px;">
+        <a href="login.html" class="navghost">Log In</a>
+        <a href="signup.html" class="navcta">Sign Up</a>
+      </div>
+
+      <div id="navAuthLoggedIn" style="display:none;align-items:center;gap:14px;">
+        <a href="dashboard.html" class="navghost">Dashboard</a>
+        <a href="resources.html" class="navghost">Resources</a>
+
+        <a href="profile.html" class="nav-profile">
+          <span class="avatar" id="navAvatarInitial">K</span>
+          <span id="navUserName">Member</span>
+        </a>
+
+        <button class="navghost logoutBtn" type="button">Log Out</button>
+      </div>
+    </div>
+
+    <button
+      class="burger"
+      id="burgerBtn"
+      type="button"
+      aria-label="Open menu">
+      ☰
+    </button>
+
+  </nav>
+</header>
+
+<main>
+
+  <!-- PAGE HEADER -->
+  <section class="page-header">
+    <div class="hero-ring" aria-hidden="true"></div>
+
+    <div class="wrap">
+      <span class="eyebrow">HELP · INFORMATION · SUPPORT</span>
+      <h1>Frequently Asked Questions</h1>
+
+      <p>
+        Quick answers about KINESIS, our activities, membership,
+        resources, products, events, and ways to get in touch.
+      </p>
+    </div>
+  </section>
+
+  <section class="faq-shell" style="padding-top:32px;">
+    <div class="wrap">
+
+      <div class="faq-intro">
+
+        <div>
+          <span class="tag">START HERE</span>
+          <h2>Find the answer you need</h2>
+
+          <p>
+            Browse the questions below or use the search box to quickly
+            filter topics. If your question is not listed, you can contact
+            KINESIS directly through our Contact page.
+          </p>
+        </div>
+
+        <div class="faq-help-card">
+          <h3>Still need help?</h3>
+
+          <p>
+            Send KINESIS an inquiry about programs, events, membership,
+            collaborations, products, or organization information.
+          </p>
+
+          <div class="faq-help-actions">
+            <a href="contact.html" class="btn btn-primary">Contact KINESIS</a>
+            <a href="https://m.me/61588488886453" target="_blank" rel="noopener" class="btn btn-ghost">Messenger</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="faq-search-wrap">
+        <input
+          type="search"
+          class="faq-search"
+          id="faqSearch"
+          placeholder="Search frequently asked questions..."
+          aria-label="Search frequently asked questions">
+
+        <span class="faq-search-icon">⌕</span>
+      </div>
+
+      <div class="faq-categories">
+        <button class="faq-category-btn active" type="button" data-category="all">All</button>
+        <button class="faq-category-btn" type="button" data-category="organization">Organization</button>
+        <button class="faq-category-btn" type="button" data-category="membership">Membership</button>
+        <button class="faq-category-btn" type="button" data-category="programs">Programs &amp; Events</button>
+        <button class="faq-category-btn" type="button" data-category="resources">Resources</button>
+        <button class="faq-category-btn" type="button" data-category="products">Products</button>
+        <button class="faq-category-btn" type="button" data-category="contact">Contact</button>
+      </div>
+
+      <div class="faq-list" id="faqList">
+
+        <article class="faq-item" data-category="organization">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span class="faq-question-left">
+              <span class="faq-label">ORGANIZATION</span>
+              <strong>What is KINESIS Organization?</strong>
+            </span>
+            <span class="faq-plus">+</span>
+          </button>
+
+          <div class="faq-answer">
+            <p>
+              KINESIS is a student-driven organization based at City College of Angeles
+              that brings together Physical Education, sports, movement, wellness,
+              education, and professional event management.
+              <a href="about.html">Learn more about KINESIS →</a>
+            </p>
+          </div>
+        </article>
+
+        <article class="faq-item" data-category="organization">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span class="faq-question-left">
+              <span class="faq-label">ORGANIZATION</span>
+              <strong>Is KINESIS only focused on pickleball?</strong>
+            </span>
+            <span class="faq-plus">+</span>
+          </button>
+
+          <div class="faq-answer">
+            <p>
+              No. Pickleball and racket-sport officiating are part of KINESIS activities,
+              but the organization also covers sports education, Physical Education,
+              movement, wellness, seminars, workshops, partnerships, and MICE/event-management experiences.
+            </p>
+          </div>
+        </article>
+
+        <article class="faq-item" data-category="organization">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span class="faq-question-left">
+              <span class="faq-label">ORGANIZATION</span>
+              <strong>What are the mission and vision of KINESIS?</strong>
+            </span>
+            <span class="faq-plus">+</span>
+          </button>
+
+          <div class="faq-answer">
+            <p>
+              KINESIS is guided by systematic planning, coordination, movement management,
+              communication, teamwork, continuous improvement, and a vision of connecting
+              Physical Education with the MICE industry through meaningful sport,
+              movement, and wellness-centered experiences.
+              <a href="mission-vision.html">Read the full Mission &amp; Vision →</a>
+            </p>
+          </div>
+        </article>
+
+        <article class="faq-item" data-category="membership">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span class="faq-question-left">
+              <span class="faq-label">MEMBERSHIP</span>
+              <strong>How do I create a KINESIS account?</strong>
+            </span>
+            <span class="faq-plus">+</span>
+          </button>
+
+          <div class="faq-answer">
+            <p>
+              Visit the <a href="signup.html">Sign Up page</a>, enter your name,
+              email address, and password, then create your account. After signing in,
+              you can access the member Dashboard, Resources, and Profile pages.
+            </p>
+          </div>
+        </article>
+
+        <article class="faq-item" data-category="membership">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span class="faq-question-left">
+              <span class="faq-label">MEMBERSHIP</span>
+              <strong>What can I access after I log in?</strong>
+            </span>
+            <span class="faq-plus">+</span>
+          </button>
+
+          <div class="faq-answer">
+            <p>
+              Signed-in members can access the member Dashboard, member Resources,
+              and their Profile page. These areas provide account information,
+              organization links, and member-focused materials.
+            </p>
+          </div>
+        </article>
+
+        <article class="faq-item" data-category="programs">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span class="faq-question-left">
+              <span class="faq-label">PROGRAMS &amp; EVENTS</span>
+              <strong>What kinds of programs does KINESIS offer?</strong>
+            </span>
+            <span class="faq-plus">+</span>
+          </button>
+
+          <div class="faq-answer">
+            <p>
+              KINESIS program areas include sports education, seminars and workshops,
+              movement and wellness activities, event management and operations,
+              community or campus partnerships, and practical skills development.
+              <a href="programs.html">Explore Programs →</a>
+            </p>
+          </div>
+        </article>
+
+        <article class="faq-item" data-category="programs">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span class="faq-question-left">
+              <span class="faq-label">PROGRAMS &amp; EVENTS</span>
+              <strong>Where can I find upcoming event schedules?</strong>
+            </span>
+            <span class="faq-plus">+</span>
+          </button>
+
+          <div class="faq-answer">
+            <p>
+              Confirmed schedules, venues, and participation details are posted on the
+              <a href="events.html">Events page</a>. If no upcoming event is listed,
+              KINESIS will update that page when new activity details are finalized.
+            </p>
+          </div>
+        </article>
+
+        <article class="faq-item" data-category="programs">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span class="faq-question-left">
+              <span class="faq-label">PROGRAMS &amp; EVENTS</span>
+              <strong>Was Smash and Paddle already completed?</strong>
+            </span>
+            <span class="faq-plus">+</span>
+          </button>
+
+          <div class="faq-answer">
+            <p>
+              Yes. “Smash and Paddle: The New Era of Racket Sports Officiating”
+              was held on April 29, 2026 at the CCA Covered Court and is now listed
+              as a completed KINESIS activity.
+            </p>
+          </div>
+        </article>
+
+        <article class="faq-item" data-category="resources">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span class="faq-question-left">
+              <span class="faq-label">RESOURCES</span>
+              <strong>Are member resources available for download now?</strong>
+            </span>
+            <span class="faq-plus">+</span>
+          </button>
+
+          <div class="faq-answer">
+            <p>
+              The Resources page currently contains prepared resource categories,
+              but official downloadable KINESIS materials have not yet been added.
+              Available materials will appear there once they are uploaded.
+            </p>
+          </div>
+        </article>
+
+        <article class="faq-item" data-category="resources">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span class="faq-question-left">
+              <span class="faq-label">RESOURCES</span>
+              <strong>Who can open the Resources page?</strong>
+            </span>
+            <span class="faq-plus">+</span>
+          </button>
+
+          <div class="faq-answer">
+            <p>
+              The Resources page is a member-only area. Visitors must be signed in
+              to a KINESIS account before they can access it.
+            </p>
+          </div>
+        </article>
+
+        <article class="faq-item" data-category="products">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span class="faq-question-left">
+              <span class="faq-label">PRODUCTS</span>
+              <strong>Can I order products directly from the KINESIS website?</strong>
+            </span>
+            <span class="faq-plus">+</span>
+          </button>
+
+          <div class="faq-answer">
+            <p>
+              Not currently. The Products page is designed for product presentation,
+              promotional content, and interactive viewing. Direct website ordering
+              and checkout are not yet included.
+              <a href="products.html">View Products →</a>
+            </p>
+          </div>
+        </article>
+
+        <article class="faq-item" data-category="products">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span class="faq-question-left">
+              <span class="faq-label">PRODUCTS</span>
+              <strong>What products are featured on the website?</strong>
+            </span>
+            <span class="faq-plus">+</span>
+          </button>
+
+          <div class="faq-answer">
+            <p>
+              The current product showcase features SalonFix Pain Relief Patch
+              and EnerG vegetable-based energy gel products, with interactive
+              product viewing available on the Products page.
+            </p>
+          </div>
+        </article>
+
+        <article class="faq-item" data-category="contact">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span class="faq-question-left">
+              <span class="faq-label">CONTACT</span>
+              <strong>How can I contact KINESIS?</strong>
+            </span>
+            <span class="faq-plus">+</span>
+          </button>
+
+          <div class="faq-answer">
+            <p>
+              You can contact KINESIS through the <a href="contact.html">Contact page</a>,
+              by email at kinesisorganization@gmail.com, or through Messenger.
+            </p>
+          </div>
+        </article>
+
+        <article class="faq-item" data-category="contact">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span class="faq-question-left">
+              <span class="faq-label">CONTACT</span>
+              <strong>Where is KINESIS located?</strong>
+            </span>
+            <span class="faq-plus">+</span>
+          </button>
+
+          <div class="faq-answer">
+            <p>
+              KINESIS Organization is based at City College of Angeles in
+              Angeles City, Philippines. The Contact page includes an interactive
+              Google Map and a button to open the location in Google Maps.
+            </p>
+          </div>
+        </article>
+
+        <article class="faq-item" data-category="contact">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span class="faq-question-left">
+              <span class="faq-label">CONTACT</span>
+              <strong>Can organizations or partners collaborate with KINESIS?</strong>
+            </span>
+            <span class="faq-plus">+</span>
+          </button>
+
+          <div class="faq-answer">
+            <p>
+              Yes. KINESIS welcomes inquiries regarding partnerships,
+              collaborations, sponsorship discussions, speakers, and other
+              organizational opportunities. Use the Contact page to send an inquiry.
+            </p>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="faq-empty" id="faqEmpty">
+        No FAQ matches your search. Try a different keyword or contact KINESIS directly.
+      </div>
+
+      <div class="faq-cta">
+        <div>
+          <span class="tag">CAN'T FIND YOUR QUESTION?</span>
+          <h2>Ask KINESIS directly</h2>
+
+          <p>
+            Contact us about membership, activities, event schedules,
+            programs, products, partnerships, or other organization concerns.
+          </p>
+        </div>
+
+        <div class="faq-cta-actions">
+          <a href="contact.html" class="btn btn-primary">Contact KINESIS</a>
+          <a href="https://m.me/61588488886453" target="_blank" rel="noopener" class="btn btn-ghost">Open Messenger</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap" style="display:flex;flex-direction:column;gap:20px;width:100%;">
+
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+      <div class="foot-brand">
+        <img
+          src="assets/logo.png"
+          alt="KINESIS Organization logo"
+          style="width:22px;height:22px;object-fit:contain;">
+        KINESIS ORGANIZATION
+      </div>
+
+      <div style="display:flex;gap:12px;">
+        <a
+          href="https://www.facebook.com/profile.php?id=61588488886453"
+          target="_blank"
+          rel="noopener"
+          aria-label="KINESIS Organization on Facebook"
+          style="width:36px;height:36px;border-radius:50%;background:var(--panel);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="#C7CCD9">
+            <path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;border-top:1px solid var(--line);padding-top:20px;">
+      <p>© 2026 KINESIS Organization · City College of Angeles</p>
+
+      <div style="display:flex;gap:16px;flex-wrap:wrap;">
+        <a href="faq.html">FAQ</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore-compat.js"></script>
+
+<script src="js/firebase-config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/chat.js"></script>
+<script src="js/ui-effects.js"></script>
+
+<script>
+  /* ========================================
+     FAQ ACCORDION
+  ======================================== */
+
+  const faqItems = Array.from(document.querySelectorAll(".faq-item"));
+  const faqQuestions = document.querySelectorAll(".faq-question");
+  const faqSearch = document.getElementById("faqSearch");
+  const faqEmpty = document.getElementById("faqEmpty");
+  const faqCategoryButtons = document.querySelectorAll(".faq-category-btn");
+
+  let activeCategory = "all";
+
+  faqQuestions.forEach(function(button) {
+    button.addEventListener("click", function() {
+      const item = button.closest(".faq-item");
+      const isOpen = item.classList.contains("open");
+
+      faqItems.forEach(function(otherItem) {
+        otherItem.classList.remove("open");
+
+        const otherButton =
+          otherItem.querySelector(".faq-question");
+
+        if (otherButton) {
+          otherButton.setAttribute("aria-expanded", "false");
+        }
+      });
+
+      if (!isOpen) {
+        item.classList.add("open");
+        button.setAttribute("aria-expanded", "true");
+      }
+    });
+  });
+
+  function filterFaq() {
+    const term =
+      faqSearch.value.toLowerCase().trim();
+
+    let visibleCount = 0;
+
+    faqItems.forEach(function(item) {
+      const text =
+        item.textContent.toLowerCase();
+
+      const category =
+        item.dataset.category;
+
+      const matchesSearch =
+        !term || text.includes(term);
+
+      const matchesCategory =
+        activeCategory === "all" ||
+        category === activeCategory;
+
+      const visible =
+        matchesSearch && matchesCategory;
+
+      item.style.display =
+        visible ? "" : "none";
+
+      if (visible) {
+        visibleCount += 1;
+      }
+    });
+
+    faqEmpty.style.display =
+      visibleCount === 0 ? "block" : "none";
+  }
+
+  faqSearch.addEventListener("input", filterFaq);
+
+  faqCategoryButtons.forEach(function(button) {
+    button.addEventListener("click", function() {
+
+      faqCategoryButtons.forEach(function(otherButton) {
+        otherButton.classList.remove("active");
+      });
+
+      button.classList.add("active");
+
+      activeCategory =
+        button.dataset.category;
+
+      filterFaq();
+    });
+  });
+</script>
+
+</body>
+</html>

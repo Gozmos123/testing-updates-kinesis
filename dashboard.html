@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard — KINESIS Organization</title>
+<meta name="description" content="KINESIS member dashboard for quick access to resources, profile, programs, events, and organization updates.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+
+<style>
+  /* ========================================
+     KINESIS MEMBER DASHBOARD — PC FIRST
+  ======================================== */
+
+  .dashboard-shell{
+    padding:142px 0 86px;
+  }
+
+  .dashboard-top{
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:28px;
+    align-items:end;
+    margin-bottom:34px;
+  }
+
+  .dashboard-welcome .eyebrow{
+    margin-bottom:12px;
+  }
+
+  .dashboard-welcome h1{
+    font-size:clamp(38px,5vw,56px);
+    line-height:1;
+    margin-bottom:12px;
+  }
+
+  .dashboard-welcome p{
+    max-width:680px;
+    color:var(--muted);
+    font-size:15.5px;
+    line-height:1.7;
+  }
+
+  .dashboard-account-chip{
+    min-width:245px;
+    padding:16px 18px;
+    display:flex;
+    align-items:center;
+    gap:13px;
+    border:1px solid var(--line);
+    border-radius:16px;
+    background:var(--panel);
+  }
+
+  .dashboard-avatar{
+    width:44px;
+    height:44px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex:0 0 auto;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--blue),var(--purple));
+    color:#fff;
+    font-family:'Rajdhani',sans-serif;
+    font-size:20px;
+    font-weight:700;
+  }
+
+  .dashboard-account-chip span{
+    display:block;
+  }
+
+  .dashboard-account-label{
+    color:var(--muted);
+    font-size:10.5px;
+    font-weight:700;
+    letter-spacing:.11em;
+    text-transform:uppercase;
+  }
+
+  .dashboard-account-email{
+    margin-top:3px;
+    color:var(--silver);
+    font-size:13px;
+    word-break:break-word;
+  }
+
+  /* ---------- Main dashboard grid ---------- */
+
+  .dashboard-grid{
+    display:grid;
+    grid-template-columns:1.35fr .65fr;
+    gap:24px;
+    align-items:start;
+  }
+
+  .dashboard-column{
+    display:grid;
+    gap:24px;
+  }
+
+  .dashboard-card{
+    border:1px solid var(--line);
+    border-radius:22px;
+    background:var(--panel);
+    overflow:hidden;
+  }
+
+  .dashboard-card-body{
+    padding:30px;
+  }
+
+  .dashboard-card-head{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:18px;
+    margin-bottom:22px;
+  }
+
+  .dashboard-card-head h2{
+    font-size:26px;
+    line-height:1.1;
+    margin-bottom:6px;
+  }
+
+  .dashboard-card-head p{
+    color:var(--muted);
+    font-size:13.5px;
+    line-height:1.6;
+  }
+
+  .dashboard-status{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    flex:0 0 auto;
+    padding:7px 11px;
+    border-radius:999px;
+    font-size:10.5px;
+    font-weight:700;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+  }
+
+  .dashboard-status.active{
+    color:#83e6a5;
+    background:rgba(80,200,120,.10);
+    border:1px solid rgba(80,200,120,.24);
+  }
+
+  .dashboard-status.completed{
+    color:var(--silver);
+    background:rgba(199,204,217,.08);
+    border:1px solid var(--line);
+  }
+
+  .dashboard-status.upcoming{
+    color:var(--blue);
+    background:rgba(47,168,255,.09);
+    border:1px solid rgba(47,168,255,.25);
+  }
+
+  /* ---------- Upcoming ---------- */
+
+  .dashboard-upcoming{
+    display:grid;
+    grid-template-columns:180px 1fr;
+    min-height:260px;
+  }
+
+  .dashboard-upcoming-visual{
+    background:
+      linear-gradient(rgba(10,12,22,.20),rgba(10,12,22,.60)),
+      url('assets/pickleball-banner.jpg') center/cover no-repeat;
+  }
+
+  .dashboard-upcoming-copy{
+    padding:30px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+
+  .dashboard-upcoming-copy h3{
+    font-size:27px;
+    line-height:1.08;
+    margin:12px 0;
+  }
+
+  .dashboard-upcoming-copy p{
+    color:var(--muted);
+    font-size:14.5px;
+    line-height:1.7;
+  }
+
+  .dashboard-actions{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-top:22px;
+  }
+
+  /* ---------- Quick Links ---------- */
+
+  .dashboard-links{
+    display:grid;
+    gap:12px;
+  }
+
+  .dashboard-link{
+    min-height:70px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+    padding:15px 16px;
+    border:1px solid var(--line);
+    border-radius:15px;
+    background:#0d1222;
+    transition:transform .18s ease,border-color .18s ease;
+  }
+
+  .dashboard-link:hover{
+    transform:translateY(-2px);
+    border-color:var(--blue);
+  }
+
+  .dashboard-link-left{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    min-width:0;
+  }
+
+  .dashboard-link-icon{
+    width:38px;
+    height:38px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex:0 0 auto;
+    border-radius:11px;
+    background:linear-gradient(135deg,rgba(47,168,255,.15),rgba(155,63,224,.15));
+    color:var(--blue);
+    font-size:17px;
+  }
+
+  .dashboard-link strong{
+    display:block;
+    color:var(--silver);
+    font-size:14px;
+  }
+
+  .dashboard-link small{
+    display:block;
+    margin-top:3px;
+    color:var(--muted);
+    font-size:11.5px;
+  }
+
+  .dashboard-link-arrow{
+    color:var(--blue);
+    flex:0 0 auto;
+  }
+
+  /* ---------- Previous activity ---------- */
+
+  .dashboard-event-history{
+    display:grid;
+    grid-template-columns:150px 1fr;
+    gap:22px;
+    align-items:center;
+  }
+
+  .dashboard-event-history img{
+    width:100%;
+    aspect-ratio:4/5;
+    object-fit:cover;
+    border-radius:14px;
+    border:1px solid var(--line);
+  }
+
+  .dashboard-event-history h3{
+    font-size:22px;
+    line-height:1.15;
+    margin:10px 0 12px;
+  }
+
+  .dashboard-event-meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px 18px;
+    color:var(--muted);
+    font-size:12.5px;
+    line-height:1.5;
+  }
+
+  .dashboard-event-history p{
+    margin-top:14px;
+    color:var(--muted);
+    font-size:13.5px;
+    line-height:1.65;
+  }
+
+  /* ---------- Account card ---------- */
+
+  .account-list{
+    display:grid;
+    gap:14px;
+  }
+
+  .account-row{
+    padding-bottom:14px;
+    border-bottom:1px solid var(--line);
+  }
+
+  .account-row:last-child{
+    padding-bottom:0;
+    border-bottom:0;
+  }
+
+  .account-row-label{
+    color:var(--muted);
+    font-size:10.5px;
+    font-weight:700;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+  }
+
+  .account-row-value{
+    margin-top:5px;
+    color:var(--silver);
+    font-size:13.5px;
+    line-height:1.5;
+    word-break:break-word;
+  }
+
+  /* ---------- Member note ---------- */
+
+  .member-note{
+    padding:26px;
+    border:1px solid rgba(47,168,255,.22);
+    border-radius:18px;
+    background:
+      linear-gradient(135deg,rgba(47,168,255,.08),rgba(155,63,224,.06));
+  }
+
+  .member-note h3{
+    font-size:21px;
+    margin-bottom:9px;
+  }
+
+  .member-note p{
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.65;
+  }
+
+  .member-note .btn{
+    margin-top:17px;
+  }
+
+  @media (max-width:960px){
+    .dashboard-grid{
+      grid-template-columns:1fr;
+    }
+
+    .dashboard-top{
+      grid-template-columns:1fr;
+      align-items:start;
+    }
+
+    .dashboard-account-chip{
+      width:100%;
+    }
+  }
+
+  @media (max-width:700px){
+    .dashboard-shell{
+      padding:112px 0 70px;
+    }
+
+    .dashboard-upcoming{
+      grid-template-columns:1fr;
+    }
+
+    .dashboard-upcoming-visual{
+      min-height:220px;
+    }
+
+    .dashboard-event-history{
+      grid-template-columns:1fr;
+    }
+
+    .dashboard-event-history img{
+      max-width:220px;
+    }
+
+    .dashboard-card-body,
+    .dashboard-upcoming-copy{
+      padding:24px;
+    }
+  }
+</style>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S6P4B00FM9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-S6P4B00FM9');
+</script>
+</head>
+
+<body>
+
+<header id="siteHeader">
+  <nav class="wrap">
+
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="KINESIS Organization logo" class="brand-logo">
+      KINESIS
+    </a>
+
+    <div class="navlinks">
+      <a href="index.html">Home</a>
+
+      <div class="nav-dropdown">
+        <a href="about.html" class="dropdown-toggle">
+          About Us <span class="dropdown-arrow">▾</span>
+        </a>
+
+        <div class="dropdown-menu">
+          <a href="about.html">About KINESIS</a>
+          <a href="mission-vision.html">Mission &amp; Vision</a>
+          <a href="advocacies.html">Our Advocacies</a>
+          <a href="team.html">Our Team</a>
+        </div>
+      </div>
+
+      <a href="programs.html">Programs</a>
+      <a href="products.html">Products</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="events.html">Events</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <div class="nav-right">
+      <div id="navAuthLoggedOut" style="display:flex;gap:10px;">
+        <a href="login.html" class="navghost">Log In</a>
+        <a href="signup.html" class="navcta">Sign Up</a>
+      </div>
+
+      <div id="navAuthLoggedIn" style="display:none;align-items:center;gap:14px;">
+        <a href="dashboard.html" class="navghost active">Dashboard</a>
+        <a href="resources.html" class="navghost">Resources</a>
+
+        <a href="profile.html" class="nav-profile">
+          <span class="avatar" id="navAvatarInitial">K</span>
+          <span id="navUserName">Member</span>
+        </a>
+
+        <button class="navghost logoutBtn" type="button">Log Out</button>
+      </div>
+    </div>
+
+    <button
+      class="burger"
+      id="burgerBtn"
+      type="button"
+      aria-label="Open menu">
+      ☰
+    </button>
+
+  </nav>
+</header>
+
+<main id="dashboardShell" style="display:none;">
+
+  <section class="dashboard-shell">
+    <div class="wrap">
+
+      <!-- WELCOME -->
+      <div class="dashboard-top">
+
+        <div class="dashboard-welcome">
+          <span class="eyebrow">MEMBER DASHBOARD</span>
+
+          <h1 id="dashWelcome">Welcome back!</h1>
+
+          <p>
+            Your KINESIS member space gives you quick access to organization
+            resources, profile settings, programs, events, and member information.
+          </p>
+        </div>
+
+        <div class="dashboard-account-chip">
+          <div class="dashboard-avatar" id="dashAvatar">K</div>
+
+          <div>
+            <span class="dashboard-account-label">Signed in as</span>
+            <span class="dashboard-account-email" id="dashEmail">Loading...</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="dashboard-grid">
+
+        <!-- LEFT COLUMN -->
+        <div class="dashboard-column">
+
+          <!-- UPCOMING -->
+          <article class="dashboard-card dashboard-upcoming">
+
+            <div class="dashboard-upcoming-visual" aria-hidden="true"></div>
+
+            <div class="dashboard-upcoming-copy">
+              <span class="dashboard-status upcoming">Upcoming</span>
+
+              <h3>New KINESIS events coming soon</h3>
+
+              <p>
+                Future seminars, sports activities, workshops, partnerships,
+                and event-management experiences will be announced once
+                schedules and participation details are finalized.
+              </p>
+
+              <div class="dashboard-actions">
+                <a href="events.html" class="btn btn-primary">View Events</a>
+                <a href="programs.html" class="btn btn-ghost">Explore Programs</a>
+              </div>
+            </div>
+
+          </article>
+
+          <!-- PREVIOUS EVENT -->
+          <article class="dashboard-card">
+            <div class="dashboard-card-body">
+
+              <div class="dashboard-card-head">
+                <div>
+                  <h2>Previous KINESIS Activity</h2>
+                  <p>A recent completed organization event.</p>
+                </div>
+
+                <span class="dashboard-status completed">Completed</span>
+              </div>
+
+              <div class="dashboard-event-history">
+
+                <img
+                  src="assets/event-smash-paddle.jpg"
+                  alt="Smash and Paddle event poster">
+
+                <div>
+                  <h3>Smash and Paddle: The New Era of Racket Sports Officiating</h3>
+
+                  <div class="dashboard-event-meta">
+                    <span>📅 April 29, 2026</span>
+                    <span>🕖 7:00 AM – 5:00 PM</span>
+                    <span>📍 CCA Covered Court</span>
+                  </div>
+
+                  <p>
+                    A completed KINESIS seminar-workshop focused on racket-sport
+                    officiating, practical learning, and participant development.
+                  </p>
+
+                  <div class="dashboard-actions">
+                    <a href="events.html" class="btn btn-ghost">View Event History</a>
+                    <a href="gallery.html" class="btn btn-ghost">View Gallery</a>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </article>
+
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <aside class="dashboard-column">
+
+          <!-- QUICK LINKS -->
+          <article class="dashboard-card">
+            <div class="dashboard-card-body">
+
+              <div class="dashboard-card-head">
+                <div>
+                  <h2>Quick Access</h2>
+                  <p>Jump directly to the member tools you need.</p>
+                </div>
+              </div>
+
+              <div class="dashboard-links">
+
+                <a href="resources.html" class="dashboard-link">
+                  <div class="dashboard-link-left">
+                    <span class="dashboard-link-icon">▤</span>
+                    <div>
+                      <strong>Member Resources</strong>
+                      <small>Access available materials</small>
+                    </div>
+                  </div>
+                  <span class="dashboard-link-arrow">→</span>
+                </a>
+
+                <a href="profile.html" class="dashboard-link">
+                  <div class="dashboard-link-left">
+                    <span class="dashboard-link-icon">◉</span>
+                    <div>
+                      <strong>My Profile</strong>
+                      <small>View and manage your account</small>
+                    </div>
+                  </div>
+                  <span class="dashboard-link-arrow">→</span>
+                </a>
+
+                <a href="events.html" class="dashboard-link">
+                  <div class="dashboard-link-left">
+                    <span class="dashboard-link-icon">◫</span>
+                    <div>
+                      <strong>Events</strong>
+                      <small>See current and past activities</small>
+                    </div>
+                  </div>
+                  <span class="dashboard-link-arrow">→</span>
+                </a>
+
+                <a href="programs.html" class="dashboard-link">
+                  <div class="dashboard-link-left">
+                    <span class="dashboard-link-icon">✓</span>
+                    <div>
+                      <strong>Programs</strong>
+                      <small>Explore KINESIS learning areas</small>
+                    </div>
+                  </div>
+                  <span class="dashboard-link-arrow">→</span>
+                </a>
+
+              </div>
+
+            </div>
+          </article>
+
+          <!-- ACCOUNT STATUS -->
+          <article class="dashboard-card">
+            <div class="dashboard-card-body">
+
+              <div class="dashboard-card-head">
+                <div>
+                  <h2>Account Status</h2>
+                  <p>Your current KINESIS member session.</p>
+                </div>
+
+                <span class="dashboard-status active">Active</span>
+              </div>
+
+              <div class="account-list">
+
+                <div class="account-row">
+                  <div class="account-row-label">Member Name</div>
+                  <div class="account-row-value" id="dashMemberName">Loading...</div>
+                </div>
+
+                <div class="account-row">
+                  <div class="account-row-label">Email</div>
+                  <div class="account-row-value" id="dashMemberEmail">Loading...</div>
+                </div>
+
+                <div class="account-row">
+                  <div class="account-row-label">Account Access</div>
+                  <div class="account-row-value">KINESIS Member</div>
+                </div>
+
+              </div>
+
+              <div class="dashboard-actions">
+                <a href="profile.html" class="btn btn-ghost">Manage Profile</a>
+              </div>
+
+            </div>
+          </article>
+
+          <!-- HELP -->
+          <div class="member-note">
+            <h3>Need help?</h3>
+
+            <p>
+              For account concerns, organization questions, event inquiries,
+              or other assistance, contact KINESIS through the Contact page.
+            </p>
+
+            <a href="contact.html" class="btn btn-ghost">Contact KINESIS</a>
+          </div>
+
+        </aside>
+
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore-compat.js"></script>
+
+<script src="js/firebase-config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/chat.js"></script>
+<script src="js/ui-effects.js"></script>
+
+<script>
+  /* ========================================
+     MEMBER DASHBOARD AUTH
+  ======================================== */
+
+  auth.onAuthStateChanged(function(user) {
+
+    if (!user) {
+      window.location.href = "login.html";
+      return;
+    }
+
+    const dashboardShell = document.getElementById("dashboardShell");
+    const dashWelcome = document.getElementById("dashWelcome");
+    const dashEmail = document.getElementById("dashEmail");
+    const dashAvatar = document.getElementById("dashAvatar");
+    const dashMemberName = document.getElementById("dashMemberName");
+    const dashMemberEmail = document.getElementById("dashMemberEmail");
+
+    const fallbackName =
+      user.email ? user.email.split("@")[0] : "Member";
+
+    const fullName =
+      user.displayName || fallbackName;
+
+    const firstName =
+      fullName.trim().split(/\s+/)[0] || "Member";
+
+    dashboardShell.style.display = "block";
+
+    dashWelcome.textContent =
+      "Welcome back, " + firstName + "!";
+
+    dashEmail.textContent =
+      user.email || "No email available";
+
+    dashAvatar.textContent =
+      firstName.charAt(0).toUpperCase();
+
+    dashMemberName.textContent =
+      fullName;
+
+    dashMemberEmail.textContent =
+      user.email || "No email available";
+
+  });
+</script>
+
+</body>
+</html>
